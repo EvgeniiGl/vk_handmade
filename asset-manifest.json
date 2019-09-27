@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.981f7211.chunk.css",
-    "main.js": "/static/js/main.55311105.chunk.js",
-    "main.js.map": "/static/js/main.55311105.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.12c0baba.js",
-    "runtime-main.js.map": "/static/js/runtime-main.12c0baba.js.map",
-    "static/css/2.4e89ce74.chunk.css": "/static/css/2.4e89ce74.chunk.css",
-    "static/js/2.ca44c281.chunk.js": "/static/js/2.ca44c281.chunk.js",
-    "static/js/2.ca44c281.chunk.js.map": "/static/js/2.ca44c281.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.766f78ef4c6b162aa245f2c4c46fbbdf.js": "/precache-manifest.766f78ef4c6b162aa245f2c4c46fbbdf.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.4e89ce74.chunk.css.map": "/static/css/2.4e89ce74.chunk.css.map",
-    "static/css/main.981f7211.chunk.css.map": "/static/css/main.981f7211.chunk.css.map",
-    "static/media/persik.png": "/static/media/persik.4e1ec840.png"
+    "main.css": "/vk_handmade/static/css/main.981f7211.chunk.css",
+    "main.js": "/vk_handmade/static/js/main.55311105.chunk.js",
+    "main.js.map": "/vk_handmade/static/js/main.55311105.chunk.js.map",
+    "runtime-main.js": "/vk_handmade/static/js/runtime-main.0a406d28.js",
+    "runtime-main.js.map": "/vk_handmade/static/js/runtime-main.0a406d28.js.map",
+    "static/css/2.4e89ce74.chunk.css": "/vk_handmade/static/css/2.4e89ce74.chunk.css",
+    "static/js/2.ef7f3208.chunk.js": "/vk_handmade/static/js/2.ef7f3208.chunk.js",
+    "static/js/2.ef7f3208.chunk.js.map": "/vk_handmade/static/js/2.ef7f3208.chunk.js.map",
+    "index.html": "/vk_handmade/index.html",
+    "precache-manifest.715b0c470026a09602e5e30f71440e8d.js": "/vk_handmade/precache-manifest.715b0c470026a09602e5e30f71440e8d.js",
+    "service-worker.js": "/vk_handmade/service-worker.js",
+    "static/css/2.4e89ce74.chunk.css.map": "/vk_handmade/static/css/2.4e89ce74.chunk.css.map",
+    "static/css/main.981f7211.chunk.css.map": "/vk_handmade/static/css/main.981f7211.chunk.css.map",
+    "static/media/persik.png": "/vk_handmade/static/media/persik.4e1ec840.png"
   }
 }
