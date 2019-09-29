@@ -1,25 +1,50 @@
-
-export default function(state , action) {
+export default (state, action) => {
   switch (action.type) {
-    case 'setActivePanel':
-      const obj = Object.assign(state,
-          {
-            activePanel: action.payload,
-          })
-        console.log('setActivePanel-- ',obj);
-      return obj
-    case 'setPopout':
-      return Object.assign(state,
-        {
-          popout: action.payload,
-        })
-    case 'setUser':
-      return  Object.assign(state,
-        {
-          fetchedUser: action.payload,
-          popout:null
-        })
+    case "setActivePanel":
+      return {
+        ...state,
+        activePanel: action.payload.activePanel,
+      };
+    case "setPopout":
+      return {
+        ...state,
+        popout: action.payload.popout,
+      }
+     case "setUser":
+      return {
+        ...state,
+        fetchedUser: action.payload.fetchedUser,
+        popout:null
+      }
+     case "setSex":
+      return {
+        ...state,
+        activePanel: action.payload.activePanel,
+        indicators:{
+          ...state.indicators,
+          sex:action.payload.sex,
+        }
+      }
+     case "setRelation":
+      return {
+        ...state,
+        activePanel: action.payload.activePanel,
+        indicators:{
+          ...state.indicators,
+          relation:action.payload.relation,
+        }
+      }
+     case "setAge":
+         console.log('action.payload-- ',action.payload);
+      return {
+        ...state,
+        activePanel: action.payload.activePanel,
+        indicators:{
+          ...state.indicators,
+          age:action.payload.age,
+        }
+      }
     default:
-      return state
+      return state;
   }
 }

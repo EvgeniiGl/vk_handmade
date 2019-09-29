@@ -1,16 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react'
+import {Context} from './../../context'
 import PropTypes from 'prop-types';
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
-import Group from '@vkontakte/vkui/dist/components/Group/Group';
-import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
+import BtnOutline from "../../core/BtnOutline";
 
-const Home = ({ id, go, fetchedUser }) => (
-    <Panel id={id}>
-        <PanelHeader>Example</PanelHeader>
+const Home = (props) => {
+
+    const {dispatch} = useContext(Context);
+
+    const go = e => {
+        dispatch({
+            type: 'setActivePanel',
+            payload: {
+                activePanel: e.currentTarget.dataset.to,
+            }
+        })
+    };
+
+   return <div id={props.id} className='wrapper bg-blue'>
         {/*{fetchedUser &&*/}
         {/*<Group title="User Data Fetched with VK Connect">*/}
         {/*    <Cell*/}
@@ -21,27 +28,31 @@ const Home = ({ id, go, fetchedUser }) => (
         {/*    </Cell>*/}
         {/*</Group>}*/}
 
-        <Group title="Navigation Example">
-            <Div>
-                <Button size="xl" level="2" onClick={go} data-to="persik">
-                    Show me the Persik, please
-                </Button>
-            </Div>
-        </Group>
-    </Panel>
-);
+
+
+        <Div className=''>
+            Не знаешь что подарить?
+        </Div>
+        <Div className=''>
+            мы вам поможем найти подарок
+        </Div>
+        <BtnOutline data_to="whom" handleClick={go}>
+            Найти подарок!
+        </BtnOutline>
+    </div>
+}
 
 Home.propTypes = {
     id: PropTypes.string.isRequired,
-    go: PropTypes.func.isRequired,
-    fetchedUser: PropTypes.shape({
-        photo_200: PropTypes.string,
-        first_name: PropTypes.string,
-        last_name: PropTypes.string,
-        city: PropTypes.shape({
-            title: PropTypes.string,
-        }),
-    }),
+    // go: PropTypes.func.isRequired,
+    // fetchedUser: PropTypes.shape({
+    //     photo_200: PropTypes.string,
+    //     first_name: PropTypes.string,
+    //     last_name: PropTypes.string,
+    //     city: PropTypes.shape({
+    //         title: PropTypes.string,
+    //     }),
+    // }),
 };
 
 export default Home;
