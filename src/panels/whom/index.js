@@ -12,7 +12,6 @@ import BtnOutline from "../../core/BtnOutline";
 const Whom = props => {
     const {state, dispatch} = useContext(Context)
     const setSex = (e, sex) => {
-        console.log('log-- dataset', e.currentTarget.dataset);
         dispatch({
             type: 'setSex',
             payload: {
@@ -21,7 +20,6 @@ const Whom = props => {
             }
         })
     };
-    console.log('state', state.indicators.sex);
     return <div id={props.id} className='wrapper bg-gray'>
         <Div>Кому ищем подарок?</Div>
         <Div>

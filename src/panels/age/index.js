@@ -18,7 +18,6 @@ const Age = props => {
     const {state, dispatch} = useContext(Context)
 
     const setAge = (e, age) => {
-        console.log('log-- age',age);
         dispatch({
             type: 'setAge',
             payload: {
@@ -35,7 +34,6 @@ const Age = props => {
             }
         })
     };
-console.log('loage',state.indicators.age);
     return <Panel id={props.id}>
         <PanelHeader
             left={<HeaderButton onClick={go} data-to="who_have">

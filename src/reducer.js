@@ -14,7 +14,7 @@ export default (state, action) => {
       return {
         ...state,
         fetchedUser: action.payload.fetchedUser,
-        popout:null
+        popout:action.payload.popout
       }
      case "setSex":
       return {

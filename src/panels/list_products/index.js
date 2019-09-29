@@ -40,6 +40,7 @@ const ListProducts = props => {
             </HeaderButton>}
         />
         <div>
+            <Div className="title" >Мы кое-что нашли</Div>
             <Div className={'slider-wrap'}>
                 <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
                             before={<Icon24BrowserBack/>}/>

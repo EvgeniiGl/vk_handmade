@@ -29,6 +29,10 @@
     color: var(--button_primary_foreground)
 }
 
+.title {
+    text-align: center;
+}
+
 .slider-wrap{
     display: flex;
 }
@@ -41,12 +45,20 @@
 }
 
 .slider-btn{
-    max-width: 20px;
+    width: auto;
+    padding: 30px;
 }
 
 .gallery{
     height: auto;
 }
 
+.product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .img-product{
+    max-height: 400px;
 }

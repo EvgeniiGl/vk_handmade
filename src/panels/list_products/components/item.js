@@ -4,7 +4,7 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 
 const Product = props => {
     return (
-        <div className={"product"}>
+        <div className="product">
             <div>
                 <img className="img-product" src={persik} alt="Persik The Cat"/>
             </div>
