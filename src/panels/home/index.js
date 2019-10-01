@@ -36,7 +36,7 @@ const Home = (props) => {
         <Div className=''>
             мы вам поможем найти подарок
         </Div>
-        <BtnOutline data_to="whom" handleClick={go}>
+        <BtnOutline data_to="how" handleClick={go}>
             Найти подарок!
         </BtnOutline>
     </div>

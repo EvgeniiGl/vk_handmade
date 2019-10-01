@@ -35,7 +35,6 @@ export default (state, action) => {
         }
       }
      case "setAge":
-         console.log('action.payload-- ',action.payload);
       return {
         ...state,
         activePanel: action.payload.activePanel,
@@ -44,7 +43,22 @@ export default (state, action) => {
           age:action.payload.age,
         }
       }
+     case "setTypes":
+      return {
+        ...state,
+          types: action.payload.types,
+          popout:action.payload.popout
+      }
+     case "setProducts":
+      return {
+        ...state,
+          products: action.payload.products,
+          popout:action.payload.popout
+      }
     default:
-      return state;
+        return {
+            ...state,
+            error: "Такого метода не существует!"
+        }
   }
 }

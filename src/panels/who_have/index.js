@@ -36,7 +36,7 @@ const WhoHave = props => {
 
     return <Panel id={props.id}>
         <PanelHeader
-            left={<HeaderButton onClick={go} data-to="whom">
+            left={<HeaderButton onClick={go} data-to="sex">
                 {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
             </HeaderButton>}
         >
