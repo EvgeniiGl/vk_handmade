@@ -6,137 +6,172 @@ import connect from '@vkontakte/vk-connect';
 
 
 import Home from './panels/home';
-import Whom from './panels/whom/';
-import WhoHave from "./panels/who_have";
 
 import {Context} from './context'
-import Age from "./panels/age";
-import ListProducts from "./panels/list_products";
 import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner";
-import {getXLS, urlXlsxGoogle} from "./services/xlsx";
-import http from "./services/http";
-import PropTypes from "prop-types";
+import {getXLS} from "./services/xlsx";
 import PanelItem from "./panels/panel";
+import ListProducts from "./panels/list_products";
+import {typeHow} from "./services/filter_products";
 
 const initialState = {
-	activePanel: 'home',
-	fetchedUser: null,
-	popout: null,
-	error:'',
-	types:{
-		how: {},
-	},
-	products:{},
-	indicators: {
-		sex: null,
-		relation: null,
-		age: null
-	}
+    activePanel: 'home',
+    fetchedUser: null,
+    popout: false,
+    error: '',
+    types: {
+        how: {},
+        sex: {},
+        relation: {},
+        age: {},
+        profession: {},
+        hobby: {},
+        event: {}
+    },
+    products: [],
+    filteredProducts:[],
+    indicators: {
+        sex: null,
+        relation: null,
+        age: null,
+        how: '',
+        profession: null,
+        hobby: null,
+        event: null,
+    }
 }
 
 const App = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
+// console.log('state.products-- ',state.products);
+// console.log('state.indicators-- ',state.indicators);
+    // const go =  e => {
+    // 	 dispatch({
+    // 		type: 'setActivePanel',
+    // 		payload: {
+    // 			activePanel:e.currentTarget.dataset.to,
+    // 		}
+    // 	})
+    // };
+    //
+    const setUser = user => {
 
-	// const go =  e => {
-	// 	 dispatch({
-	// 		type: 'setActivePanel',
-	// 		payload: {
-	// 			activePanel:e.currentTarget.dataset.to,
-	// 		}
-	// 	})
-	// };
-	//
-	const setUser = user => {
+    };
 
-	};
+    //get user info
+    useEffect(() => {
+        dispatch({
+            type: 'setPopout',
+            payload: {
+                popout: true,
+            }
+        })
+        connect.subscribe(({detail: {type, data}}) => {
+                if (type === 'VKWebAppUpdateConfig') {
+                    const schemeAttribute = document.createAttribute('scheme');
+                    console.log('schemeAttribute-- ', schemeAttribute);
+                }
+            }
+        );
 
-	//get user info
-	useEffect(() => {
-		dispatch({
-			type: 'setPopout',
-			payload: {
-				popout: <ScreenSpinner size='large'/>,
-			}
-		})
-		connect.subscribe(({detail: {type, data}}) => {
-				if (type === 'VKWebAppUpdateConfig') {
-					const schemeAttribute = document.createAttribute('scheme');
-					console.log('schemeAttribute-- ',schemeAttribute);
-				}
-			}
-		);
-		async function fetchUser() {
-			const user = await connect.sendPromise('VKWebAppGetUserInfo');
-			dispatch({
-				type: 'setUser',
-				payload: {
-					fetchedUser: user,
-					popout: null,
-				}
-			})
-		}
-		fetchUser();
-	}, []);
+        async function fetchUser() {
+            const user = await connect.sendPromise('VKWebAppGetUserInfo');
+            dispatch({
+                type: 'setUser',
+                payload: {
+                    fetchedUser: user,
+                    popout: false,
+                }
+            })
+        }
 
-	//get characteristics of the products from xslx
-	useEffect(() => {
-		dispatch({
-			type: 'setPopout',
-			payload: {
-				popout: <ScreenSpinner size='large'/>,
-			}
-		})
-		async function fetchData() {
-			const data = await getXLS();
-			const keys = Object.keys(data.types[0]);
-			let types = {};
-			keys.forEach((key)=> {
-				types[key] = {}
-			})
-			data.types.forEach((type)=>{
-				keys.forEach((key)=> {
-					if(type[key] !== undefined)
-					types[key][type.id] = type[key]
-				})
-			})
-			dispatch({
-				type: 'setTypes',
-				payload: {
-					types: types,
-					popout: null,
-				}
-			})
-			dispatch({
-				type: 'setProducts',
-				payload: {
-					products: data.products,
-					popout: null,
-				}
-			})
-			console.log('log-- ',types);
-		}
-		fetchData();
-	}, []);
+        fetchUser();
+    }, []);
 
-	return (
-		<Context.Provider value={{
-			state, dispatch
-		}}>
-			<div className="container">
-				<View activePanel={state.activePanel} popout={state.popout}>
-					<Home id='home' fetchedUser={state.fetchedUser}/>
-					{/*<Whom id='sex'/>*/}
-					{/*<WhoHave id='who_have'/>*/}
-					{/*<Age id='age'/>*/}
-					{/*<ListProducts id='list_products'/>*/}
-<PanelItem id={'how'} to_id={'sex'} title={'Как подобрать подарок?'} action={'setHow'} types={state.types.how} />
-{/*<PanelItem id={'sex'} to_id={'sex'} title={''} action={'setHow'} />*/}
-				</View>
-				<span className={'error'}>{state.error}</span>
-			</div>
+    //get characteristics of the products from xslx
+    useEffect(() => {
+        dispatch({
+            type: 'setPopout',
+            payload: {
+                popout: true,
+            }
+        })
 
-		</Context.Provider>
-	);
+        async function fetchData() {
+            const data = await getXLS();
+            const keys = Object.keys(data.types[0]);
+            let types = {};
+            keys.forEach((key) => {
+                types[key] = {}
+            })
+            data.types.forEach((type) => {
+                keys.forEach((key) => {
+                    if (type[key] !== undefined)
+                        types[key][type.id] = type[key]
+                })
+            })
+            dispatch({
+                type: 'setTypes',
+                payload: {
+                    types: types,
+                    popout: false,
+                }
+            })
+            dispatch({
+                type: 'getAllProducts',
+                payload: {
+                    products: data.products,
+                    popout: false,
+                }
+            })
+        }
+        fetchData();
+    }, []);
+
+    const getRelationsAtSex = () => {
+        let result = {}, key;
+        for (key in state.types.relation) {
+            if (state.types.relation.hasOwnProperty(key) && (state.indicators.sex === '1' ? +key <= 7 : +key > 7)) {
+                result[key] = state.types.relation[key];
+            }
+        }
+        return result;
+    }
+
+    return (
+        <Context.Provider value={{
+            state, dispatch
+        }}>
+            <div className="container">
+                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> :null}>
+                    <Home id='home' fetchedUser={state.fetchedUser}/>
+                    {/*<Whom id='sex'/>*/}
+                    {/*<WhoHave id='who_have'/>*/}
+                    {/*<Age id='age'/>*/}
+                    {/*<PanelItem id={'sex'} to_id={'sex'} title={''} />*/}
+                    <PanelItem id={'how'} to_id={'sex'} title={'Как подобрать подарок?'}
+                               types={state.types.how}/>
+                    <PanelItem withHeader id={'sex'} back_id={'how'} to_id={'age'} title={'Кому ищем подарок?'}
+                               types={state.types.sex}/>
+                    <PanelItem withHeader id={'age'} back_id={'sex'}
+                               to_id={typeHow[state.indicators.how] || 'list_products'} title={'Сколько лет?'}
+                               types={state.types.age}/>
+                    <PanelItem withHeader id={'profession'} back_id={'age'} to_id={'list_products'} title={'Профессия?'}
+                               types={state.types.profession}/>
+                    <PanelItem withHeader id={'relation'} back_id={'age'} to_id={'list_products'}
+                               title={'Кем приходится?'}
+                               types={getRelationsAtSex()}/>
+                    <PanelItem withHeader id={'hobby'} back_id={'age'} to_id={'list_products'} title={'Увлечение?'}
+                               types={state.types.hobby}/>
+                    <PanelItem withHeader id={'event'} back_id={'age'} to_id={'list_products'} title={'Событие?'}
+                               types={state.types.event}/>
+                    <ListProducts id='list_products' back_id={typeHow[state.indicators.how] || 'age'}/>
+                </View>
+                <span className={'error'}>{state.error}</span>
+            </div>
+
+        </Context.Provider>
+    );
 }
 
 export default App;

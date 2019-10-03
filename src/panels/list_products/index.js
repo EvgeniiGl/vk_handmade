@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types';
 import {IOS, platform} from '@vkontakte/vkui';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
@@ -15,8 +15,12 @@ import Icon24BrowserBack from '@vkontakte/icons/dist/24/browser_back';
 import Icon24BrowserForward from '@vkontakte/icons/dist/24/browser_forward';
 import {Context} from "../../context";
 import Product from "./components/item";
+import filterProducts from "../../services/filter_products";
+import http, {handmade_id} from "../../services/http";
 
 const osName = platform();
+
+const uriImg = 'photos.getById';
 
 const ListProducts = props => {
     const [slideIndex, setSlide] = useState(0);
@@ -26,12 +30,45 @@ const ListProducts = props => {
         dispatch({
             type: 'setActivePanel',
             payload: {
-                activePanel: e.currentTarget.dataset.to,
+                activePanel: props.back_id,
             }
         })
     };
 
-    const products = [...Array(10).keys()].map((i) => <Product key={i}/>)
+    //filter products
+    useEffect(() => {
+        dispatch({
+            type: 'setPopout',
+            payload: {
+                popout: true,
+            }
+        })
+
+        async function filter() {
+            const filteredProducts = await filterProducts.filter(state.products, state.indicators);
+            const photos = filteredProducts.map((product) => {
+                return product.img.split(',').map((img_id) => {
+                    return `-${handmade_id}_${img_id.trim()}`
+                }).join(',')
+            }).join(',')
+            console.log('photos-- ', photos);
+            const imgs = await http.jsonp(uriImg, {photos: photos})
+            await console.log('imgs-- ', imgs);
+            await dispatch({
+                type: 'getFilteredProducts',
+                payload: {
+                    filteredProducts: filteredProducts,
+                }
+            })
+        }
+
+        filter();
+    }, []);
+
+
+    const countProducts = state.filteredProducts.length;
+    const products = state.filteredProducts.map((product, i) => <Product key={i} item={++i} product={product}
+                                                                         count={countProducts}/>)
 
     return <Panel id={props.id}>
         <PanelHeader
@@ -40,7 +77,7 @@ const ListProducts = props => {
             </HeaderButton>}
         />
         <div>
-            <Div className="title" >Мы кое-что нашли</Div>
+            <Div className="title">Мы кое-что нашли</Div>
             <Div className={'slider-wrap'}>
                 <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
                             before={<Icon24BrowserBack/>}/>
@@ -56,7 +93,7 @@ const ListProducts = props => {
                         {products}
                     </Gallery>
                 </Div>
-                <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex === 2 ? 0 : slideIndex + 1)}
+                <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex + 1)}
                             before={<Icon24BrowserForward/>}/>
             </Div>
 
@@ -67,7 +104,8 @@ const ListProducts = props => {
 
 ListProducts.propTypes = {
     id: PropTypes.string.isRequired,
-    go: PropTypes.func.isRequired,
+    back_id: PropTypes.string.isRequired,
+    // go: PropTypes.func.isRequired,
 };
 
 export default ListProducts;

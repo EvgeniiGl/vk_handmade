@@ -17,11 +17,11 @@ const osName = platform();
 const PanelItem = props => {
     const {state, dispatch} = useContext(Context)
 
-    const set = (e, age) => {
+    const setIndicators = (e, data) => {
         dispatch({
-            type: props.action,
+            type: 'setIndicators',
             payload: {
-                age: age,
+                data: data,
                 activePanel: e.currentTarget.dataset.to,
             }
         })
@@ -36,12 +36,11 @@ const PanelItem = props => {
         })
     };
 
-    const buttons = Object.keys(props.types).map((key) => <BtnOutline key={key} handleClick={(e) => set(e, key)}
+    const buttons = Object.keys(props.types).map((key) => <BtnOutline key={key} handleClick={(e) => setIndicators(e, {[props.id]:key})}
                                                                       data_to={props.to_id}
-                                                                      active={state.indicators[props.panel_id] === key}>
+                                                                      active={state.indicators[props.id] === key}>
         {props.types[key]}
     </BtnOutline>)
-console.log('log-- ',props);
     return <Panel id={props.id}>
         {props.withHeader && <PanelHeader left={
             <HeaderButton onClick={go} data-to={props.back_id}>
@@ -62,7 +61,6 @@ PanelItem.propTypes = {
     back_id: PropTypes.string,
     to_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    action: PropTypes.string.isRequired,
     types: PropTypes.objectOf(PropTypes.string)
 };
 
