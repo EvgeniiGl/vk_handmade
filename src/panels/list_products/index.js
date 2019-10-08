@@ -198,7 +198,7 @@ const ListProducts = props => {
                 </Div>
                 </div>
                 </div>
-                {!!countProducts  && <div>
+                {!!countProducts  && <div className={'btn-wrap-items'}>
                     <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e)}>Где купить?</Button>
                     <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
                 </div>}
