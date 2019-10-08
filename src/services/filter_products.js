@@ -17,7 +17,8 @@ export default class filterProducts {
         this.indicators = indicators;
         const filteredProducts = products.filter((product) => {
             const lastFilter = typeHow[this.indicators.how] === undefined ? true : this[`is${typeHow[this.indicators.how].charAt(0).toUpperCase()}${typeHow[this.indicators.how].slice(1)}`](product);
-            // console.log('id-- ', product.id, lastFilter);
+            // console.log('product-- ', product.id, product);
+            if(!product.img || !product.img.trim()) return false;
             return this.isHow(product) && this.isSex(product) && this.isAge(product) && lastFilter
         })
         // console.log('filteredProducts-- ', filteredProducts);

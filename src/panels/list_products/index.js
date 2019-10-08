@@ -37,12 +37,12 @@ const ListProducts = props => {
 
     const give = async (e, product) => {
         const productPhoto = product.name;
-        console.log('product_id-- ', product.id);
+        // console.log('product_id-- ', product.id);
         const btn = e.currentTarget.innerText;
-        console.log('btn-- ', e.currentTarget.innerText);
+        // console.log('btn-- ', e.currentTarget.innerText);
         // console.log('id_user-- ',state.user.id);
-        console.log('time-- ', new Date().toLocaleString());
-        console.log('indicators--f ', state.indicators);
+        // console.log('time-- ', new Date().toLocaleString());
+        // console.log('indicators--f ', state.indicators);
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
                 "message": `Сервис поиска подарков! Хочу себе ${product.name}!`,
@@ -77,7 +77,7 @@ const ListProducts = props => {
         })
     };
     const redirectSiberiaHandmade = e => {
-        console.log('redirectSiberiaHandmade-- ');
+        // console.log('redirectSiberiaHandmade-- ');
         window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
     };
 
@@ -92,7 +92,7 @@ const ListProducts = props => {
                 }
             })
         } else {
-            console.log('data-- ', data);
+            // console.log('data-- ', data);
             // console.log('filteredProducts-- ', filteredProducts);
             filteredProducts.map((product) => {
                 data.response.forEach(function (photo) {
@@ -132,7 +132,7 @@ const ListProducts = props => {
                 //     return `-${handmade_id}_${img_id.trim()}`
                 // }).join(',')
             }).filter(img => !!img).join(',')
-            console.log('photos-- ', photos);
+            // console.log('photos-- ', photos);
             if (!!photos) {
                 httpApiVk.jsonp(uriImg, {photos: photos}, getImgs)
             } else {
@@ -155,9 +155,9 @@ const ListProducts = props => {
     const products = state.filteredProducts.map((product, i) => <Product give={give} buy={buy} key={i} item={++i}
                                                                          product={product}
                                                                          count={countProducts}/>)
-    console.log('slideIndex-- ', slideIndex);
-    console.log('countProducts-- ', countProducts);
-    console.log('state.filteredProducts-- ', state.filteredProducts);
+    // console.log('slideIndex-- ', slideIndex);
+    // console.log('countProducts-- ', countProducts);
+    // console.log('state.filteredProducts-- ', state.filteredProducts);
     const item = slideIndex + 1;
     const currentProduct = state.filteredProducts[slideIndex];
     const title = currentProduct && currentProduct.name;
@@ -172,7 +172,7 @@ const ListProducts = props => {
             </Div>
             <div className={'container-items'}>
                 {/*<Div className="title">Мы кое-что нашли</Div>*/}
-                <div>
+                <div className={'block-items'}>
                 <div>
                 <Div className={'slider-wrap'}>
                     {!!countProducts && slideIndex !== 0 &&
@@ -198,7 +198,7 @@ const ListProducts = props => {
                 </Div>
                 </div>
                 </div>
-                {!!countProducts  && <div className={'btn-wrap-items'}>
+                {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
                     <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e)}>Где купить?</Button>
                     <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
                 </div>}
