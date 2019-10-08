@@ -155,7 +155,7 @@ const ListProducts = props => {
     const products = state.filteredProducts.map((product, i) => <Product give={give} buy={buy} key={i} item={++i}
                                                                          product={product}
                                                                          count={countProducts}/>)
-    // console.log('slideIndex-- ', slideIndex);
+
     // console.log('countProducts-- ', countProducts);
     // console.log('state.filteredProducts-- ', state.filteredProducts);
     const item = slideIndex + 1;

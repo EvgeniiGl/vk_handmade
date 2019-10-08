@@ -49,6 +49,12 @@ export default (state, action) => {
               filteredProducts: action.payload.filteredProducts,
               popout:action.payload.popout
           }
+      case "setOverflow":
+          return {
+              ...state,
+              isOverflow:action.payload.isOverflow,
+              panelOverflow:action.payload.panelOverflow,
+          }
     default:
         return {
             ...state,

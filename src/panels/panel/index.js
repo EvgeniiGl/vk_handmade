@@ -1,9 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {IOS, platform} from '@vkontakte/vkui';
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import HeaderButton from '@vkontakte/vkui/dist/components/HeaderButton/HeaderButton';
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 
@@ -43,6 +40,23 @@ const PanelItem = props => {
                                                                         active={state.indicators[props.id] === val}>
         {val}
     </BtnOutline>)
+    const refCallback = element => {
+        if (element) {
+            const root = document.getElementById('root')
+            const isOverflow = element.getBoundingClientRect().height > root.scrollHeight
+            if (state.isOverflow !== isOverflow && state.panelOverflow !== state.activePanel) {
+                dispatch({
+                    type: 'setOverflow',
+                    payload: {
+                        isOverflow: isOverflow,
+                        panelOverflow: state.activePanel
+                    }
+                })
+            }
+        }
+
+    };
+
     return <div className={'wrapper'} id={props.id}>
         {/*<PanelHeader className={'header'} left={*/}
         {/*    <HeaderButton onClick={go} data-to={props.back_id}>*/}
@@ -52,20 +66,20 @@ const PanelItem = props => {
         {/*    <Div>{props.title}</Div>*/}
         {/*</PanelHeader>*/}
         <div className={'panel'}>
-        <Div className={'header'}>
-            <button className={'btn-back'} onClick={go} data-to={props.back_id}>
-                {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
-            </button>
-            <Div className={'header-title'}>{props.title}</Div>
-        </Div>
+            <Div className={'header'}>
+                <button className={'btn-back'} onClick={go} data-to={props.back_id}>
+                    {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
+                </button>
+                <Div className={'header-title'}>{props.title}</Div>
+            </Div>
 
-        <Div className='content'>
-            <div className={'btn-wrap'}>
+            <Div className='content'>
+                <div className={'btn-wrap'} ref={refCallback}>
 
-            {buttons}
-            </div>
-        </Div>
-    </div>
+                    {buttons}
+                </div>
+            </Div>
+        </div>
     </div>
 }
 

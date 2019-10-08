@@ -17,6 +17,8 @@ import {getTypes} from "./services/types";
 
 const initialState = {
     activePanel: 'home',
+    isOverflow:false,
+    panelOverflow:'',
     fetchedUser: {
         bdate: "",
         city: {id: null, title: ""},
@@ -86,7 +88,6 @@ const App = () => {
                 }
             }
         );
-
         async function fetchUser() {
             const user = await connect.sendPromise('VKWebAppGetUserInfo');
             dispatch({
@@ -157,11 +158,14 @@ const App = () => {
 // console.log('data.types-- ',state.types);
 // console.log('data.products-- ',state.products);
 //     console.log('state.ind-- ', state.indicators);
+// const ref = {};
+
+    // console.log('lo33g-- ',ref.getBoundingclientRect(), ref.clientHeight);
     return (
         <Context.Provider value={{
             state, dispatch
         }}>
-            <div className="container">
+            <div className={state.isOverflow?"container-height-auto":"container"}>
                 <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null}>
                     <Home id='home' fetchedUser={state.fetchedUser}/>
                     {/*<Whom id='sex'/>*/}
