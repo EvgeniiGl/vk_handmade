@@ -4,11 +4,16 @@ export default (state, action) => {
       return {
         ...state,
         activePanel: action.payload.activePanel,
+          indicators:{
+              ...state.indicators,
+              ...action.payload.data
+          }
       };
     case "setPopout":
       return {
         ...state,
         popout: action.payload.popout,
+          error: action.payload.error
       }
      case "setUser":
       return {
@@ -38,6 +43,7 @@ export default (state, action) => {
           popout:action.payload.popout
       }
       case "getFilteredProducts":
+          // console.log('getFilteredProducts-- ',);
           return {
               ...state,
               filteredProducts: action.payload.filteredProducts,

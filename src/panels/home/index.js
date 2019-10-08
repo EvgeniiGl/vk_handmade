@@ -3,6 +3,7 @@ import {Context} from './../../context'
 import PropTypes from 'prop-types';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import BtnOutline from "../../core/BtnOutline";
+import arrow from './../../img/arrow.svg'
 
 const Home = (props) => {
 
@@ -17,7 +18,8 @@ const Home = (props) => {
         })
     };
 
-   return <div id={props.id} className='wrapper bg-blue'>
+   return <div id={props.id} className='wrapper '>
+       <div className={'home'}>
         {/*{fetchedUser &&*/}
         {/*<Group title="User Data Fetched with VK Connect">*/}
         {/*    <Cell*/}
@@ -29,16 +31,17 @@ const Home = (props) => {
         {/*</Group>}*/}
 
 
-
-        <Div className=''>
+        <Div className='title'>
             Не знаешь что подарить?
         </Div>
-        <Div className=''>
-            мы вам поможем найти подарок
+        <Div className='text'>
+            Воспользуйся нашим сервисом<br/>и получи идеи для подарка!
         </Div>
+       <img src={arrow} className={'arrow'}/>
         <BtnOutline data_to="how" handleClick={go}>
             Найти подарок!
         </BtnOutline>
+    </div>
     </div>
 }
 

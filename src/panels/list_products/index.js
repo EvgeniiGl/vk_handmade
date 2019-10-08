@@ -1,12 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types';
 import {IOS, platform} from '@vkontakte/vkui';
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import HeaderButton from '@vkontakte/vkui/dist/components/HeaderButton/HeaderButton';
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
-
 import './../../style.css';
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
@@ -16,7 +12,10 @@ import Icon24BrowserForward from '@vkontakte/icons/dist/24/browser_forward';
 import {Context} from "../../context";
 import Product from "./components/item";
 import filterProducts from "../../services/filter_products";
-import http, {handmade_id} from "../../services/http";
+import httpApiVk, {handmade_id} from "../../services/httpApiVk";
+import LastItem from "./components/last_item";
+import connect from '@vkontakte/vk-connect';
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
 
 const osName = platform();
 
@@ -25,6 +24,7 @@ const uriImg = 'photos.getById';
 const ListProducts = props => {
     const [slideIndex, setSlide] = useState(0);
     const {state, dispatch} = useContext(Context)
+    let filteredProducts = {};
 
     const go = e => {
         dispatch({
@@ -35,6 +35,84 @@ const ListProducts = props => {
         })
     };
 
+    const give = async (e, product) => {
+        const productPhoto = product.name;
+        console.log('product_id-- ', product.id);
+        const btn = e.currentTarget.innerText;
+        console.log('btn-- ', e.currentTarget.innerText);
+        // console.log('id_user-- ',state.user.id);
+        console.log('time-- ', new Date().toLocaleString());
+        console.log('indicators--f ', state.indicators);
+        if (connect.supports("VKWebAppShowWallPostBox")) {
+            connect.send("VKWebAppShowWallPostBox", {
+                "message": `Сервис поиска подарков! Хочу себе ${product.name}!`,
+                "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
+            })
+        }
+    };
+
+    const buy = async e => {
+        // const productName = e.currentTarget.dataset.name;
+        // console.log('product_id-- ', e.currentTarget.dataset.product);
+        // const btn = e.currentTarget.innerText;
+        // console.log('btn-- ', e.currentTarget.innerText);
+        // // console.log('id_user-- ',state.user.id);
+        // console.log('time-- ', new Date().toLocaleString());
+        // console.log('indicators--buy2 ', state.indicators);
+        // localStorage.setItem(`im_store_${state.fetchedUser.id}`, `{"draft_-176551026":{"txt":"${btn} ${productName}"}}`);
+        // window.location.href = 'https://vk.com/im?media=&sel=-176551026'
+        // const scope = await connect.send("VKWebAppGetAuthToken", {"app_id": 7148453, "scope": "wall,friends"});
+
+        window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
+        // console.log('log-- ', 'scope');
+    };
+
+    const again = e => {
+        // console.log('again-- ');
+        dispatch({
+            type: 'setActivePanel',
+            payload: {
+                activePanel: 'home',
+            }
+        })
+    };
+    const redirectSiberiaHandmade = e => {
+        console.log('redirectSiberiaHandmade-- ');
+        window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
+    };
+
+    const getImgs = (err, data) => {
+        if (err) {
+            console.error("ERROR get images", err.message);
+            dispatch({
+                type: 'setPopout',
+                payload: {
+                    popout: false,
+                    error: "Ошибка подключения к серверу ВК!"
+                }
+            })
+        } else {
+            console.log('data-- ', data);
+            // console.log('filteredProducts-- ', filteredProducts);
+            filteredProducts.map((product) => {
+                data.response.forEach(function (photo) {
+                    if (!!product.img && product.img.includes(photo.id)) {
+                        product.img_url = photo.sizes[3].url
+                    }
+                })
+                return product
+            })
+            dispatch({
+                type: 'getFilteredProducts',
+                payload: {
+                    filteredProducts: filteredProducts,
+                    popout: false,
+                }
+            })
+
+        }
+    }
+
     //filter products
     useEffect(() => {
         dispatch({
@@ -44,22 +122,29 @@ const ListProducts = props => {
             }
         })
 
-        async function filter() {
-            const filteredProducts = await filterProducts.filter(state.products, state.indicators);
+        function filter() {
+            filteredProducts = filterProducts.filter(state.products, state.indicators);
             const photos = filteredProducts.map((product) => {
-                return product.img.split(',').map((img_id) => {
-                    return `-${handmade_id}_${img_id.trim()}`
-                }).join(',')
-            }).join(',')
+                if (!product.img) return '';
+                product.img_fullname = `-${handmade_id}_${String(product.img).split(',')[0].trim()}`
+                return product.img_fullname
+                // ((img_id) => {
+                //     return `-${handmade_id}_${img_id.trim()}`
+                // }).join(',')
+            }).filter(img => !!img).join(',')
             console.log('photos-- ', photos);
-            const imgs = await http.jsonp(uriImg, {photos: photos})
-            await console.log('imgs-- ', imgs);
-            await dispatch({
-                type: 'getFilteredProducts',
-                payload: {
-                    filteredProducts: filteredProducts,
-                }
-            })
+            if (!!photos) {
+                httpApiVk.jsonp(uriImg, {photos: photos}, getImgs)
+            } else {
+                dispatch({
+                    type: 'getFilteredProducts',
+                    payload: {
+                        filteredProducts: filteredProducts,
+                        popout: false,
+                    }
+                })
+            }
+
         }
 
         filter();
@@ -67,38 +152,59 @@ const ListProducts = props => {
 
 
     const countProducts = state.filteredProducts.length;
-    const products = state.filteredProducts.map((product, i) => <Product key={i} item={++i} product={product}
+    const products = state.filteredProducts.map((product, i) => <Product give={give} buy={buy} key={i} item={++i}
+                                                                         product={product}
                                                                          count={countProducts}/>)
-
-    return <Panel id={props.id}>
-        <PanelHeader
-            left={<HeaderButton onClick={go} data-to="age">
-                {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
-            </HeaderButton>}
-        />
-        <div>
-            <Div className="title">Мы кое-что нашли</Div>
-            <Div className={'slider-wrap'}>
-                <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
-                            before={<Icon24BrowserBack/>}/>
-                <Div className={"slider-gallery"}>
-                    <Gallery
-                        className={"gallery"}
-                        slideWidth="98%"
-                        align="center"
-                        // style={{height: 150}}
-                        slideIndex={slideIndex}
-                        onChange={slideIndex => setSlide(slideIndex)}
-                    >
-                        {products}
-                    </Gallery>
-                </Div>
-                <CellButton className={"slider-btn"} onClick={() => setSlide(slideIndex + 1)}
-                            before={<Icon24BrowserForward/>}/>
+    console.log('slideIndex-- ', slideIndex);
+    console.log('countProducts-- ', countProducts);
+    console.log('state.filteredProducts-- ', state.filteredProducts);
+    const item = slideIndex + 1;
+    const currentProduct = state.filteredProducts[slideIndex];
+    const title = currentProduct && currentProduct.name;
+    return <div className={'wrapper'} id={props.id}>
+        <div className={'panel'}>
+            <Div className={'header'}>
+                <button className={'btn-back'} onClick={go} data-to={props.back_id}>
+                    {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
+                </button>
+                <Div
+                    className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</Div>
             </Div>
+            <div className={'container-items'}>
+                {/*<Div className="title">Мы кое-что нашли</Div>*/}
+                <div>
+                <div>
+                <Div className={'slider-wrap'}>
+                    {!!countProducts && slideIndex !== 0 &&
+                    <CellButton className={"slider-btn slider-btn-left"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
+                                before={<Icon24BrowserBack width={40} height={40}/>}/>}
+                    <Div className={"slider-gallery"}>
+                        <Gallery
+                            className={"gallery"}
+                            // slideWidth="98%"
+                            align="center"
+                            // style={{height: 150}}
+                            slideIndex={slideIndex}
+                            onChange={slideIndex => setSlide(slideIndex)}
+                        >
+                            {products}
+                            <LastItem again={again} redirectSiberiaHandmade={redirectSiberiaHandmade}/>
 
+                        </Gallery>
+                    </Div>
+                    {!!countProducts && countProducts !== slideIndex &&
+                    <CellButton className={"slider-btn slider-btn-right"} onClick={() => setSlide(slideIndex + 1)}
+                                before={<Icon24BrowserForward width={40} height={40}/>}/>}
+                </Div>
+                </div>
+                </div>
+                {!!countProducts  && <div>
+                    <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e)}>Где купить?</Button>
+                    <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
+                </div>}
+            </div>
         </div>
-    </Panel>
+    </div>
 
 };
 

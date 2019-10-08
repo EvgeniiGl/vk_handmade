@@ -2,6 +2,7 @@ import * as XLSX from 'xlsx';
 import axios from "axios";
 
 export const urlXlsxGoogle = "https://docs.google.com/spreadsheets/d/1Oikpp2P8Tp4I8s4gIJEjK4rnR4WRIoG8SMyawtCifSs/export?format=xlsx";
+// export const urlXlsxGoogleWrite = "https://docs.google.com/spreadsheets/d/1Oikpp2P8Tp4I8s4gIJEjK4rnR4WRIoG8SMyawtCifSs/";
 
 export const getXLS = () => {
     return axios.request({
@@ -24,3 +25,25 @@ export const getXLS = () => {
     });
 }
 
+// export const logXlsx = ()=> {
+//     const wopts = {bookType: 'xlsx', bookSST: false, type: 'base64'};
+//
+//     axios.request({
+//         url: urlXlsxGoogleWrite,
+//         method: 'post',
+//         // headers: {
+//         //     Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+//         // })
+//         data: JSON.stringify({
+//             "range": 'A1',
+//             "values": wopts
+//
+//         })
+//     }).then((response) => {
+// console.log('response-- ',response);
+//
+//     }).catch(err=>{
+//
+//         console.log('err-- ',err);
+//     })
+// }

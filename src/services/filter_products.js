@@ -1,9 +1,11 @@
+import {firstUpperCaseTrim} from "./words";
+
 export const typeHow = {
-    1: 'hobby',
-    2: 'profession',
-    3: 'relation',
-    // 4: 'friend',
-    5: 'event',
+    'По увлечениям': 'hobby',
+    'По профессии': 'profession',
+    'Родственнику': 'relation',
+    // 'Другу': 'friend',
+    'На событие': 'event',
 }
 
 
@@ -15,60 +17,65 @@ export default class filterProducts {
         this.indicators = indicators;
         const filteredProducts = products.filter((product) => {
             const lastFilter = typeHow[this.indicators.how] === undefined ? true : this[`is${typeHow[this.indicators.how].charAt(0).toUpperCase()}${typeHow[this.indicators.how].slice(1)}`](product);
-            console.log('id-- ',product.id,lastFilter);
+            // console.log('id-- ', product.id, lastFilter);
             return this.isHow(product) && this.isSex(product) && this.isAge(product) && lastFilter
         })
-        console.log('filteredProducts-- ', filteredProducts);
-        return filteredProducts;
+        // console.log('filteredProducts-- ', filteredProducts);
+
+        const shuffled = filteredProducts.sort(function(){return .5 - Math.random()});
+        const result=shuffled.slice(0,15);
+
+        return result;
     }
 
     static isHow = (product) => {
-        console.log('product.how-- ', product.how);
         if (product.how === undefined) return true;
-        const how = product.how.split(',').filter((i) => this.indicators.how.includes(i.trim()))
+        const how = product.how.split(',').filter((i) => this.indicators.how === firstUpperCaseTrim(i))
+        // console.log('product.how-- ', product.how,how.length > 0);
         return how.length > 0;
     }
 
     static isSex = (product) => {
-        console.log('product.sex-- ', product.sex);
         if (product.sex === undefined) return true;
-        const sex = product.sex.split(',').filter((i) => this.indicators.sex.includes(i))
+        const sex = product.sex.split(',').filter((i) => this.indicators.sex=== firstUpperCaseTrim(i))
+        // console.log('product.sex-- ', product.sex,sex.length > 0);
         return sex.length > 0;
     }
 
     static isAge = (product) => {
-        console.log('product.age-- ', product.age);
+        // console.log('product.age-- ', product.age);
         if (product.age === undefined) return true;
-        const age = product.age.split(',').filter((i) => this.indicators.age.includes(i))
+        const age = product.age.split(',').filter((i) => this.indicators.age=== firstUpperCaseTrim(i))
+        // console.log('product.age-- ', product.age,age.length > 0);
         return age.length > 0;
     }
 
     static isEvent = (product) => {
-        console.log('product.event-- ', product.event);
+        // console.log('product.event-- ', product.event);
         if (product.event === undefined) return true;
-        const event = product.event.split(',').filter((i) => this.indicators.event.includes(i))
+        const event = product.event.split(',').filter((i) => this.indicators=== firstUpperCaseTrim(i))
+        // console.log('product.event-- ', product.event,event.length > 0);
         return event.length > 0;
     }
 
     static isHobby = (product) => {
-        console.log('product.hobby-- ', product.hobby);
+        // console.log('product.hobby-- ', product.hobby);
         if (product.hobby === undefined) return true;
-        const hobby = product.hobby.split(',').filter((i) => this.indicators.hobby.includes(i))
+        const hobby = product.hobby.split(',').filter((i) => this.indicators.hobby=== firstUpperCaseTrim(i))
         return hobby.length > 0;
     }
 
     static isProfession = (product) => {
-        console.log('product.profession-- ', product.profession);
+        // console.log('product.profession-- ', product.profession);
         if (product.profession === undefined) return true;
-        const profession = product.profession.split(',').filter((i) => this.indicators.profession.includes(i))
+        const profession = product.profession.split(',').filter((i) => this.indicators.profession=== firstUpperCaseTrim(i))
         return profession.length > 0;
     }
 
     static isRelation = (product) => {
-        console.log('product.relation-- ', product.relation);
+        // console.log('product.relation-- ', product.relation);
         if (product.relation === undefined) return true;
-        const relation = product.relation.split(',').filter((i) => this.indicators.relation.includes(i))
-        console.log('product.relation.split-- ', product.relation.split(','));
+        const relation = product.relation.split(',').filter((i) => this.indicators.relation=== firstUpperCaseTrim(i))
         return relation.length > 0;
     }
 }

@@ -31,28 +31,42 @@ const PanelItem = props => {
         dispatch({
             type: 'setActivePanel',
             payload: {
+                data: {[props.id]: null},
                 activePanel: e.currentTarget.dataset.to,
             }
         })
     };
 
-    const buttons = Object.keys(props.types).map((key) => <BtnOutline key={key} handleClick={(e) => setIndicators(e, {[props.id]:key})}
-                                                                      data_to={props.to_id}
-                                                                      active={state.indicators[props.id] === key}>
-        {props.types[key]}
+    const buttons = Object.values(props.types).map((val) => <BtnOutline key={val}
+                                                                        handleClick={(e) => setIndicators(e, {[props.id]: val})}
+                                                                        data_to={props.to_id}
+                                                                        active={state.indicators[props.id] === val}>
+        {val}
     </BtnOutline>)
-    return <Panel id={props.id}>
-        {props.withHeader && <PanelHeader left={
-            <HeaderButton onClick={go} data-to={props.back_id}>
+    return <div className={'wrapper'} id={props.id}>
+        {/*<PanelHeader className={'header'} left={*/}
+        {/*    <HeaderButton onClick={go} data-to={props.back_id}>*/}
+        {/*        {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}*/}
+        {/*    </HeaderButton>}*/}
+        {/*>*/}
+        {/*    <Div>{props.title}</Div>*/}
+        {/*</PanelHeader>*/}
+        <div className={'panel'}>
+        <Div className={'header'}>
+            <button className={'btn-back'} onClick={go} data-to={props.back_id}>
                 {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
-            </HeaderButton>}
-        >
-        </PanelHeader>}
-        <Div className='wrapper bg-gray'>
-            <Div>{props.title}</Div>
-            {buttons}
+            </button>
+            <Div className={'header-title'}>{props.title}</Div>
         </Div>
-    </Panel>
+
+        <Div className='content'>
+            <div className={'btn-wrap'}>
+
+            {buttons}
+            </div>
+        </Div>
+    </div>
+    </div>
 }
 
 PanelItem.propTypes = {
@@ -61,7 +75,7 @@ PanelItem.propTypes = {
     back_id: PropTypes.string,
     to_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    types: PropTypes.objectOf(PropTypes.string)
+    types: PropTypes.array.isRequired
 };
 
 export default PanelItem;

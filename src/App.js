@@ -13,28 +13,41 @@ import {getXLS} from "./services/xlsx";
 import PanelItem from "./panels/panel";
 import ListProducts from "./panels/list_products";
 import {typeHow} from "./services/filter_products";
+import {getTypes} from "./services/types";
 
 const initialState = {
     activePanel: 'home',
-    fetchedUser: null,
+    fetchedUser: {
+        bdate: "",
+        city: {id: null, title: ""},
+        country: {id: 1, title: "Россия"},
+        first_name: "",
+        id: null,
+        last_name: "",
+        photo_100: "",
+        photo_200: "",
+        photo_max_orig: "",
+        sex: null,
+        timezone: null
+    },
     popout: false,
     error: '',
     types: {
-        how: {},
-        sex: {},
-        relation: {},
-        age: {},
-        profession: {},
-        hobby: {},
-        event: {}
+        how: [],
+        sex: [],
+        relation: [],
+        age: [],
+        profession: [],
+        hobby: [],
+        event: []
     },
     products: [],
-    filteredProducts:[],
+    filteredProducts: [],
     indicators: {
         sex: null,
         relation: null,
         age: null,
-        how: '',
+        how: null,
         profession: null,
         hobby: null,
         event: null,
@@ -69,7 +82,7 @@ const App = () => {
         connect.subscribe(({detail: {type, data}}) => {
                 if (type === 'VKWebAppUpdateConfig') {
                     const schemeAttribute = document.createAttribute('scheme');
-                    console.log('schemeAttribute-- ', schemeAttribute);
+                    // console.log('schemeAttribute-- ', schemeAttribute);
                 }
             }
         );
@@ -100,16 +113,18 @@ const App = () => {
         async function fetchData() {
             const data = await getXLS();
             const keys = Object.keys(data.types[0]);
-            let types = {};
-            keys.forEach((key) => {
-                types[key] = {}
-            })
-            data.types.forEach((type) => {
-                keys.forEach((key) => {
-                    if (type[key] !== undefined)
-                        types[key][type.id] = type[key]
-                })
-            })
+            // let types = {};
+            // keys.forEach((key) => {
+            //     types[key] = {}
+            // })
+            // data.types.forEach((type) => {
+            //     keys.forEach((key) => {
+            //         if (type[key] !== undefined)
+            //             types[key][type.id] = firstUpperCaseTrim(type[key])
+            //     })
+            // })
+            const types = getTypes(data.products, data.types)
+            // console.log('types-- ', types);
             dispatch({
                 type: 'setTypes',
                 payload: {
@@ -125,31 +140,35 @@ const App = () => {
                 }
             })
         }
+
         fetchData();
     }, []);
 
     const getRelationsAtSex = () => {
-        let result = {}, key;
+        let result = [], key;
         for (key in state.types.relation) {
-            if (state.types.relation.hasOwnProperty(key) && (state.indicators.sex === '1' ? +key <= 7 : +key > 7)) {
-                result[key] = state.types.relation[key];
+            if (state.types.relation.hasOwnProperty(key) && (state.indicators.sex === 'Мужчине' ? +key <= 6 : +key > 6)) {
+                result.push(state.types.relation[key]);
             }
         }
         return result;
     }
 
+// console.log('data.types-- ',state.types);
+// console.log('data.products-- ',state.products);
+//     console.log('state.ind-- ', state.indicators);
     return (
         <Context.Provider value={{
             state, dispatch
         }}>
             <div className="container">
-                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> :null}>
+                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null}>
                     <Home id='home' fetchedUser={state.fetchedUser}/>
                     {/*<Whom id='sex'/>*/}
                     {/*<WhoHave id='who_have'/>*/}
                     {/*<Age id='age'/>*/}
                     {/*<PanelItem id={'sex'} to_id={'sex'} title={''} />*/}
-                    <PanelItem id={'how'} to_id={'sex'} title={'Как подобрать подарок?'}
+                    <PanelItem id={'how'} to_id={'sex'}  back_id={'home'} title={'Как подобрать подарок?'}
                                types={state.types.how}/>
                     <PanelItem withHeader id={'sex'} back_id={'how'} to_id={'age'} title={'Кому ищем подарок?'}
                                types={state.types.sex}/>
