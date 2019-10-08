@@ -54,7 +54,6 @@ const PanelItem = props => {
                 })
             }
         }
-
     };
 
     return <div className={'wrapper'} id={props.id}>

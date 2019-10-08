@@ -150,6 +150,24 @@ const ListProducts = props => {
         filter();
     }, []);
 
+    const refCallback = element => {
+        if (element) {
+            const root = document.getElementById('root')
+            const isOverflow = element.getBoundingClientRect().height > root.scrollHeight
+            console.log('log-- ',element.getBoundingClientRect().height, root.scrollHeight );
+            console.log('isOverflow-- ',element.getBoundingClientRect().height > root.scrollHeight);
+            if (state.isOverflow !== isOverflow && state.panelOverflow !== state.activePanel) {
+                dispatch({
+                    type: 'setOverflow',
+                    payload: {
+                        isOverflow: isOverflow,
+                        panelOverflow: state.activePanel
+                    }
+                })
+            }
+        }
+    };
+
 
     const countProducts = state.filteredProducts.length;
     const products = state.filteredProducts.map((product, i) => <Product give={give} buy={buy} key={i} item={++i}
@@ -170,15 +188,15 @@ const ListProducts = props => {
                 <Div
                     className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</Div>
             </Div>
-            <div className={'container-items'}>
+            <div className={'container-items'}  ref={refCallback}>
                 {/*<Div className="title">Мы кое-что нашли</Div>*/}
                 <div className={'block-items'}>
                 <div>
-                <Div className={'slider-wrap'}>
+                <div className={'slider-wrap'}>
                     {!!countProducts && slideIndex !== 0 &&
                     <CellButton className={"slider-btn slider-btn-left"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
                                 before={<Icon24BrowserBack width={40} height={40}/>}/>}
-                    <Div className={"slider-gallery"}>
+                    <div className={"slider-gallery"}>
                         <Gallery
                             className={"gallery"}
                             // slideWidth="98%"
@@ -191,11 +209,11 @@ const ListProducts = props => {
                             <LastItem again={again} redirectSiberiaHandmade={redirectSiberiaHandmade}/>
 
                         </Gallery>
-                    </Div>
+                    </div>
                     {!!countProducts && countProducts !== slideIndex &&
                     <CellButton className={"slider-btn slider-btn-right"} onClick={() => setSlide(slideIndex + 1)}
                                 before={<Icon24BrowserForward width={40} height={40}/>}/>}
-                </Div>
+                </div>
                 </div>
                 </div>
                 {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
