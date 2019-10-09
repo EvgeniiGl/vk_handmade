@@ -88,7 +88,8 @@ const App = () => {
                 }
             }
         );
-        async function fetchUser() {
+
+     async function fetchUser() {
             const user = await connect.sendPromise('VKWebAppGetUserInfo');
             dispatch({
                 type: 'setUser',

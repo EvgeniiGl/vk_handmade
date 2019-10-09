@@ -13,6 +13,7 @@ import {Context} from "../../context";
 import Product from "./components/item";
 import filterProducts from "../../services/filter_products";
 import httpApiVk, {handmade_id} from "../../services/httpApiVk";
+import http from '../../services/http'
 import LastItem from "./components/last_item";
 import connect from '@vkontakte/vk-connect';
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
@@ -36,13 +37,15 @@ const ListProducts = props => {
     };
 
     const give = async (e, product) => {
-        const productPhoto = product.name;
+        // const productPhoto = product.name;
         // console.log('product_id-- ', product.id);
-        const btn = e.currentTarget.innerText;
+        // const btn = e.currentTarget.innerText;
         // console.log('btn-- ', e.currentTarget.innerText);
         // console.log('id_user-- ',state.user.id);
         // console.log('time-- ', new Date().toLocaleString());
         // console.log('indicators--f ', state.indicators);
+        await http.post('writeHandMade', {'msg': `Пользователь ${state.user_id}. Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`})
+
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
                 "message": `Сервис поиска подарков! Хочу себе ${product.name}!`,
@@ -51,7 +54,7 @@ const ListProducts = props => {
         }
     };
 
-    const buy = async e => {
+    const buy = async (e,product) => {
         // const productName = e.currentTarget.dataset.name;
         // console.log('product_id-- ', e.currentTarget.dataset.product);
         // const btn = e.currentTarget.innerText;
@@ -62,7 +65,7 @@ const ListProducts = props => {
         // localStorage.setItem(`im_store_${state.fetchedUser.id}`, `{"draft_-176551026":{"txt":"${btn} ${productName}"}}`);
         // window.location.href = 'https://vk.com/im?media=&sel=-176551026'
         // const scope = await connect.send("VKWebAppGetAuthToken", {"app_id": 7148453, "scope": "wall,friends"});
-
+        await http.post('writeHandMade', {'msg': `Пользователь ${state.user_id}. Нажал: Где купить?. Идея: ${product.id}-${product.name}.`})
         window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
         // console.log('log-- ', 'scope');
     };
@@ -97,7 +100,7 @@ const ListProducts = props => {
             filteredProducts.map((product) => {
                 data.response.forEach(function (photo) {
                     if (!!product.img && product.img.includes(photo.id)) {
-                        product.img_url = photo.sizes[3].url
+                        product.img_url = photo.sizes[6].url
                     }
                 })
                 return product
@@ -154,8 +157,8 @@ const ListProducts = props => {
         if (element) {
             const root = document.getElementById('root')
             const isOverflow = element.getBoundingClientRect().height > root.scrollHeight
-            console.log('log-- ',element.getBoundingClientRect().height, root.scrollHeight );
-            console.log('isOverflow-- ',element.getBoundingClientRect().height > root.scrollHeight);
+            // console.log('log-- ',element.getBoundingClientRect().height, root.scrollHeight );
+            // console.log('isOverflow-- ',element.getBoundingClientRect().height > root.scrollHeight);
             if (state.isOverflow !== isOverflow && state.panelOverflow !== state.activePanel) {
                 dispatch({
                     type: 'setOverflow',
@@ -170,7 +173,7 @@ const ListProducts = props => {
 
 
     const countProducts = state.filteredProducts.length;
-    const products = state.filteredProducts.map((product, i) => <Product give={give} buy={buy} key={i} item={++i}
+    const products = state.filteredProducts.map((product, i) => <Product key={i} item={++i}
                                                                          product={product}
                                                                          count={countProducts}/>)
 
@@ -217,7 +220,7 @@ const ListProducts = props => {
                 </div>
                 </div>
                 {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
-                    <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e)}>Где купить?</Button>
+                    <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e,currentProduct)}>Где купить?</Button>
                     <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
                 </div>}
             </div>

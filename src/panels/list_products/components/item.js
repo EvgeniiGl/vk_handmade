@@ -27,8 +27,8 @@ Product.propTypes = {
     }),
     count:PropTypes.number.isRequired,
     item: PropTypes.number.isRequired,
-    buy : PropTypes.func.isRequired,
-    give: PropTypes.func.isRequired
+    // buy : PropTypes.func.isRequired,
+    // give: PropTypes.func.isRequired
 };
 
 export default Product
