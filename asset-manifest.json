@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/vk_handmade/static/css/main.5da641fb.chunk.css",
+    "main.css": "/vk_handmade/static/css/main.810b6259.chunk.css",
     "main.js": "/vk_handmade/static/js/main.8da9ffe9.chunk.js",
     "main.js.map": "/vk_handmade/static/js/main.8da9ffe9.chunk.js.map",
     "runtime-main.js": "/vk_handmade/static/js/runtime-main.0a406d28.js",
@@ -9,10 +9,10 @@
     "static/js/2.b7f076fc.chunk.js": "/vk_handmade/static/js/2.b7f076fc.chunk.js",
     "static/js/2.b7f076fc.chunk.js.map": "/vk_handmade/static/js/2.b7f076fc.chunk.js.map",
     "index.html": "/vk_handmade/index.html",
-    "precache-manifest.c713e9569873c02d381cf44606b7ee92.js": "/vk_handmade/precache-manifest.c713e9569873c02d381cf44606b7ee92.js",
+    "precache-manifest.775e2bcbf8cc638f3b927f7cd675effb.js": "/vk_handmade/precache-manifest.775e2bcbf8cc638f3b927f7cd675effb.js",
     "service-worker.js": "/vk_handmade/service-worker.js",
     "static/css/2.4e89ce74.chunk.css.map": "/vk_handmade/static/css/2.4e89ce74.chunk.css.map",
-    "static/css/main.5da641fb.chunk.css.map": "/vk_handmade/static/css/main.5da641fb.chunk.css.map",
+    "static/css/main.810b6259.chunk.css.map": "/vk_handmade/static/css/main.810b6259.chunk.css.map",
     "static/media/arrow.svg": "/vk_handmade/static/media/arrow.aa69be66.svg",
     "static/media/style.css": "/vk_handmade/static/media/bg.cb9f6033.svg",
     "static/media/persik.png": "/vk_handmade/static/media/persik.4e1ec840.png",
