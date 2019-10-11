@@ -6,7 +6,7 @@
   "homepage": "https://evgeniigl.github.io/vk_handmade/",
   "scripts": {
     "start": "cross-env PORT=10888 NODE_ENV=development react-scripts start",
-    "build": "react-scripts NODE_ENV=production  build",
+    "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },

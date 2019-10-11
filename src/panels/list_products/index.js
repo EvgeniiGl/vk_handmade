@@ -196,7 +196,6 @@ const ListProducts = props => {
             <div className={'container-items'}  ref={refCallback}>
                 {/*<Div className="title">Мы кое-что нашли</Div>*/}
                 <div className={'block-items'}>
-                <div>
                 <div className={'slider-wrap'}>
                     {!!countProducts && slideIndex !== 0 &&
                     <CellButton className={"slider-btn slider-btn-left"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
@@ -218,7 +217,7 @@ const ListProducts = props => {
                     {!!countProducts && countProducts !== slideIndex &&
                     <CellButton className={"slider-btn slider-btn-right"} onClick={() => setSlide(slideIndex + 1)}
                                 before={<Icon24BrowserForward width={40} height={40}/>}/>}
-                </div>
+
                 </div>
                 </div>
             </div>
