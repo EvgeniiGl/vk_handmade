@@ -6,7 +6,9 @@
 .btn-wrap-items {
     display: flex;
     justify-content: center;
-    z-index: 1;
+    align-items: center;
+    min-height: 100px;
+    background: #00000010;
 }
 
 .container {
@@ -68,7 +70,7 @@
     background: var(--panel_tab_active_background);
 }
 .block-items{
-    height: 80%;
+    /*height: 80%;*/
     display: flex;
     flex-direction: column;
     justify-content: center;

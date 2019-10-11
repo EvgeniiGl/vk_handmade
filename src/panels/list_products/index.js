@@ -97,12 +97,12 @@ const ListProducts = props => {
                 }
             })
         } else {
-            // console.log('data-- ', data);
+            console.log('data-- ', data);
             // console.log('filteredProducts-- ', filteredProducts);
             filteredProducts.map((product) => {
                 data.response.forEach(function (photo) {
                     if (!!product.img && product.img.includes(photo.id)) {
-                        product.img_url = photo.sizes[6].url
+                        product.img_url = photo.sizes[4].url
                     }
                 })
                 return product
@@ -221,11 +221,11 @@ const ListProducts = props => {
                 </div>
                 </div>
                 </div>
-                {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
-                    <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e,currentProduct)}>Где купить?</Button>
-                    <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
-                </div>}
             </div>
+            {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
+                <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e,currentProduct)}>Где купить?</Button>
+                <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
+            </div>}
         </div>
     </div>
 

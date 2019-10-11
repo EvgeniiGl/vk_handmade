@@ -2,7 +2,7 @@ import axios from 'axios';
 //todo переделать на нормальный сервер для логов
 
 // const baseURL = 'http://localhost/liftlab/www/some/ajax/'
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://151.237.175.72:8085/some/ajax/'
+const baseURL = process.env.NODE_ENV==='production'?'https://cors-anywhere.herokuapp.com/http://151.237.175.72:8085/some/ajax/':''
 
 
 const fetchClient = axios.create({
