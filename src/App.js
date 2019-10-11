@@ -34,6 +34,7 @@ const initialState = {
     },
     popout: false,
     error: '',
+    log:'',
     types: {
         how: [],
         sex: [],
@@ -90,7 +91,7 @@ const App = () => {
         );
 
      async function fetchUser() {
-            const user = await connect.sendPromise('VKWebAppGetUserInfo');
+         const user = await connect.sendPromise('VKWebAppGetUserInfo');
             dispatch({
                 type: 'setUser',
                 payload: {

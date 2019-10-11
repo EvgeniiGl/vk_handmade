@@ -44,7 +44,7 @@ const ListProducts = props => {
         // console.log('id_user-- ',state.user.id);
         // console.log('time-- ', new Date().toLocaleString());
         // console.log('indicators--f ', state.indicators);
-        await http.post('writeHandMade', {'msg': `Пользователь ${state.user_id}. Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`})
+        await http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`})
 
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
@@ -65,13 +65,14 @@ const ListProducts = props => {
         // localStorage.setItem(`im_store_${state.fetchedUser.id}`, `{"draft_-176551026":{"txt":"${btn} ${productName}"}}`);
         // window.location.href = 'https://vk.com/im?media=&sel=-176551026'
         // const scope = await connect.send("VKWebAppGetAuthToken", {"app_id": 7148453, "scope": "wall,friends"});
-        await http.post('writeHandMade', {'msg': `Пользователь ${state.user_id}. Нажал: Где купить?. Идея: ${product.id}-${product.name}.`})
+        await http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Где купить?. Идея: ${product.id}-${product.name}.`})
         window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
         // console.log('log-- ', 'scope');
     };
 
     const again = e => {
         // console.log('again-- ');
+        http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Попробовать еще раз!.`})
         dispatch({
             type: 'setActivePanel',
             payload: {
@@ -81,6 +82,7 @@ const ListProducts = props => {
     };
     const redirectSiberiaHandmade = e => {
         // console.log('redirectSiberiaHandmade-- ');
+         http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Подберите мне подарок.`})
         window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
     };
 
