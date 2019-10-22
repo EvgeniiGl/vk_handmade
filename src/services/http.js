@@ -21,7 +21,6 @@ export default class http {
 
     static post = async (uri, data) => {
         // const instance = fetchClient();
-        // console.log(uri, data);
         try {
             return await fetchClient.post(uri, JSON.stringify(data));
         } catch (e) {

@@ -18,7 +18,9 @@ export default (state, action) => {
                 error: action.payload.error
             }
         case "setUser":
-            http.post('writeHandMade', {'msg': `Пользователь ${action.payload.fetchedUser.id}. Зашел.`})
+            http.post('writeHandMade', {'msg':
+            // Пользователь ${action.payload.fetchedUser.id}
+            `. Зашел.`})
             return {
                 ...state,
                 fetchedUser: action.payload.fetchedUser,
@@ -26,7 +28,9 @@ export default (state, action) => {
             }
         case "setIndicators":
           const btn = Object.values(action.payload.data).join('.');
-            http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Выбрал. ${btn}`})
+            http.post('writeHandMade', {'msg':
+                // Пользователь ${state.fetchedUser.id}.
+                    `Выбрал. ${btn}`})
             return {
                 ...state,
                 activePanel: action.payload.activePanel,
@@ -48,7 +52,6 @@ export default (state, action) => {
                 popout: action.payload.popout
             }
         case "getFilteredProducts":
-            // console.log('getFilteredProducts-- ',);
             return {
                 ...state,
                 filteredProducts: action.payload.filteredProducts,

@@ -28,7 +28,6 @@ export default class httpApiVk {
 
     static post = async (uri, data) => {
         // const instance = fetchClient();
-        // console.log(uri, data);
         try {
             return await fetchClient.post(uri, data);
         } catch (e) {

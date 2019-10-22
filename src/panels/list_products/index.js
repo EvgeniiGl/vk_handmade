@@ -38,13 +38,12 @@ const ListProducts = props => {
 
     const give = async (e, product) => {
         // const productPhoto = product.name;
-        // console.log('product_id-- ', product.id);
         // const btn = e.currentTarget.innerText;
-        // console.log('btn-- ', e.currentTarget.innerText);
-        // console.log('id_user-- ',state.user.id);
-        // console.log('time-- ', new Date().toLocaleString());
-        // console.log('indicators--f ', state.indicators);
-        await http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`})
+        await http.post('writeHandMade', {
+            'msg':
+            //Пользователь ${state.fetchedUser.id}.
+                `Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`
+        })
 
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
@@ -54,25 +53,22 @@ const ListProducts = props => {
         }
     };
 
-    const buy = async (e,product) => {
-        // const productName = e.currentTarget.dataset.name;
-        // console.log('product_id-- ', e.currentTarget.dataset.product);
-        // const btn = e.currentTarget.innerText;
-        // console.log('btn-- ', e.currentTarget.innerText);
-        // // console.log('id_user-- ',state.user.id);
-        // console.log('time-- ', new Date().toLocaleString());
-        // console.log('indicators--buy2 ', state.indicators);
-        // localStorage.setItem(`im_store_${state.fetchedUser.id}`, `{"draft_-176551026":{"txt":"${btn} ${productName}"}}`);
-        // window.location.href = 'https://vk.com/im?media=&sel=-176551026'
-        // const scope = await connect.send("VKWebAppGetAuthToken", {"app_id": 7148453, "scope": "wall,friends"});
-        await http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Где купить?. Идея: ${product.id}-${product.name}.`})
-        window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
-        // console.log('log-- ', 'scope');
+    const buy = async (e, product) => {
+        await http.post('writeHandMade', {
+            'msg':
+            // Пользователь ${state.fetchedUser.id}.
+                `Нажал: Где купить?. Идея: ${product.id}-${product.name}.`
+        })
+        window.parent.location = !!product.link ? product.link : 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
     };
 
     const again = e => {
         // console.log('again-- ');
-        http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Попробовать еще раз!.`})
+        http.post('writeHandMade', {
+            'msg':
+            // Пользователь ${state.fetchedUser.id}.
+                `Нажал: Попробовать еще раз!.`
+        })
         dispatch({
             type: 'setActivePanel',
             payload: {
@@ -82,7 +78,11 @@ const ListProducts = props => {
     };
     const redirectSiberiaHandmade = e => {
         // console.log('redirectSiberiaHandmade-- ');
-         http.post('writeHandMade', {'msg': `Пользователь ${state.fetchedUser.id}. Нажал: Подберите мне подарок.`})
+        http.post('writeHandMade', {
+            'msg':
+            // Пользователь ${state.fetchedUser.id}.
+                `Нажал: Подберите мне подарок.`
+        })
         window.parent.location = 'https://vk.com/siberia_handmade?w=app6887721_-176551026';
     };
 
@@ -97,7 +97,7 @@ const ListProducts = props => {
                 }
             })
         } else {
-            console.log('data-- ', data);
+            // console.log('data-- ', data);
             // console.log('filteredProducts-- ', filteredProducts);
             filteredProducts.map((product) => {
                 data.response.forEach(function (photo) {
@@ -193,37 +193,40 @@ const ListProducts = props => {
                 <Div
                     className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</Div>
             </Div>
-            <div className={'container-items'}  ref={refCallback}>
+            <div className={'container-items'} ref={refCallback}>
                 {/*<Div className="title">Мы кое-что нашли</Div>*/}
                 <div className={'block-items'}>
-                <div className={'slider-wrap'}>
-                    {!!countProducts && slideIndex !== 0 &&
-                    <CellButton className={"slider-btn slider-btn-left"} onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
-                                before={<Icon24BrowserBack width={40} height={40}/>}/>}
-                    <div className={"slider-gallery"}>
-                        <Gallery
-                            className={"gallery"}
-                            // slideWidth="98%"
-                            align="center"
-                            // style={{height: 150}}
-                            slideIndex={slideIndex}
-                            onChange={slideIndex => setSlide(slideIndex)}
-                        >
-                            {products}
-                            <LastItem again={again} redirectSiberiaHandmade={redirectSiberiaHandmade}/>
+                    <div className={'slider-wrap'}>
+                        {!!countProducts && slideIndex !== 0 &&
+                        <CellButton className={"slider-btn slider-btn-left"}
+                                    onClick={() => setSlide(slideIndex === 0 ? 0 : slideIndex - 1)}
+                                    before={<Icon24BrowserBack width={40} height={40}/>}/>}
+                        <div className={"slider-gallery"}>
+                            <Gallery
+                                className={"gallery"}
+                                // slideWidth="98%"
+                                align="center"
+                                // style={{height: 150}}
+                                slideIndex={slideIndex}
+                                onChange={slideIndex => setSlide(slideIndex)}
+                            >
+                                {products}
+                                <LastItem again={again} redirectSiberiaHandmade={redirectSiberiaHandmade}/>
 
-                        </Gallery>
+                            </Gallery>
+                        </div>
+                        {!!countProducts && countProducts !== slideIndex &&
+                        <CellButton className={"slider-btn slider-btn-right"} onClick={() => setSlide(slideIndex + 1)}
+                                    before={<Icon24BrowserForward width={40} height={40}/>}/>}
+
                     </div>
-                    {!!countProducts && countProducts !== slideIndex &&
-                    <CellButton className={"slider-btn slider-btn-right"} onClick={() => setSlide(slideIndex + 1)}
-                                before={<Icon24BrowserForward width={40} height={40}/>}/>}
-
-                </div>
                 </div>
             </div>
-            {(!!countProducts  && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
-                <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id} data-name={currentProduct.name} onClick={e=>buy(e,currentProduct)}>Где купить?</Button>
-                <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, currentProduct)}>Хочу себе!</Button>
+            {(!!countProducts && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
+                <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id}
+                        data-name={currentProduct.name} onClick={e => buy(e, currentProduct)}>Где купить?</Button>
+                <Button size='l' level="outline" className="btn-white" onClick={e => give(e, currentProduct)}>Хочу
+                    себе!</Button>
             </div>}
         </div>
     </div>

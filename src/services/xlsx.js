@@ -40,10 +40,8 @@ export const getXLS = () => {
 //
 //         })
 //     }).then((response) => {
-// console.log('response-- ',response);
 //
 //     }).catch(err=>{
 //
-//         console.log('err-- ',err);
 //     })
 // }
