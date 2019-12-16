@@ -53,6 +53,20 @@ const ListProducts = props => {
         }
     };
 
+    const helpGive = async (e, product) => {
+        http.post('writeHandMade', {
+            'msg':
+            //Пользователь ${state.fetchedUser.id}.
+                `Нажал: Где купить.Помогите найти.Идея: ${product.id}-${product.name}.`
+        })
+        if (connect.supports("VKWebAppShowWallPostBox")) {
+            connect.send("VKWebAppShowWallPostBox", {
+                "message": `Где купить\\заказать ${product.name}! Помогите найти! https://vk.com/siberia_handmade`,
+                "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
+            })
+        }
+    };
+
     const buy = async (e, product) => {
         await http.post('writeHandMade', {
             'msg':
@@ -223,10 +237,20 @@ const ListProducts = props => {
                 </div>
             </div>
             {(!!countProducts && countProducts !== slideIndex) && <div className={'btn-wrap-items'}>
-                <Button size='l' level="outline" className="btn-white" data-product={currentProduct.id}
-                        data-name={currentProduct.name} onClick={e => buy(e, currentProduct)}>Где купить?</Button>
-                <Button size='l' level="outline" className="btn-white" onClick={e => give(e, currentProduct)}>Хочу
-                    себе!</Button>
+                <Button size='l'
+                        level="outline"
+                        className="btn-white"
+                        data-product={currentProduct.id}
+                        data-name={currentProduct.name}
+                        onClick={e => {
+                            currentProduct.link ? buy(e, currentProduct) : helpGive(e, currentProduct)
+                        }}
+                >Где купить?</Button>
+                <Button size='l'
+                        level="outline"
+                        className="btn-white"
+                        onClick={e => give(e, currentProduct)}
+                >Хочу себе!</Button>
             </div>}
         </div>
     </div>
