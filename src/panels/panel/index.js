@@ -43,7 +43,7 @@ const PanelItem = props => {
     const refCallback = element => {
         if (element) {
             const root = document.getElementById('root')
-            const isOverflow = element.getBoundingClientRect().bottom + 20 > root.scrollHeight
+            const isOverflow = element.getBoundingClientRect().height > root.scrollHeight
             if (state.isOverflow !== isOverflow && state.panelOverflow !== state.activePanel) {
                 dispatch({
                     type: 'setOverflow',

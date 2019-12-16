@@ -1,9 +1,10 @@
 import React from 'react'
 import persik from "../../../img/persik.png";
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import PropTypes from 'prop-types';
 
 const Product = props => {
-    const {product, count, item, give, buy} = props
+    const {product,count, item, give,buy}= props
     return (
         <div className="product">
             {/*<div>Идея {item} из {count}:<br/> {product.name}</div>*/}
@@ -19,12 +20,12 @@ const Product = props => {
 }
 
 Product.propTypes = {
-    product: PropTypes.shape({
+    product:PropTypes.shape({
         name: PropTypes.string.isRequired,
         // img_url: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired
+        id: PropTypes.number.isRequired
     }),
-    count: PropTypes.number.isRequired,
+    count:PropTypes.number.isRequired,
     item: PropTypes.number.isRequired,
     // buy : PropTypes.func.isRequired,
     // give: PropTypes.func.isRequired
