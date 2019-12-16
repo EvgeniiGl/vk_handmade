@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "07bb3512c991a5adaa588272d473234a",
+    "revision": "c691809ad1f298bb43ea4e94076c731f",
     "url": "/vk_handmade/index.html"
   },
   {
-    "revision": "4da356cc8d47d429a0ca",
+    "revision": "b9decda4ddf8bd246b68",
     "url": "/vk_handmade/static/css/2.4e89ce74.chunk.css"
   },
   {
-    "revision": "43a96336a0302ca17888",
-    "url": "/vk_handmade/static/css/main.fee743a9.chunk.css"
+    "revision": "d847a2c4e5ef58fc549e",
+    "url": "/vk_handmade/static/css/main.95d9585f.chunk.css"
   },
   {
-    "revision": "4da356cc8d47d429a0ca",
-    "url": "/vk_handmade/static/js/2.bd49376d.chunk.js"
+    "revision": "b9decda4ddf8bd246b68",
+    "url": "/vk_handmade/static/js/2.050be67f.chunk.js"
   },
   {
-    "revision": "43a96336a0302ca17888",
-    "url": "/vk_handmade/static/js/main.f494155a.chunk.js"
+    "revision": "d847a2c4e5ef58fc549e",
+    "url": "/vk_handmade/static/js/main.ffc8d320.chunk.js"
   },
   {
     "revision": "a23880746563bd42413c",
