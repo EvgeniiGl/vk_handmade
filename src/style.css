@@ -123,6 +123,8 @@
 .img-wrap {
     /*    margin: auto;*/
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .img-search {
@@ -283,7 +285,7 @@
 .slider-btn {
     position: fixed;
     z-index: 1;
-    top: 50%;
+    top: 40%;
 }
 
 .slider-btn-right {
