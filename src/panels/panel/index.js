@@ -5,7 +5,6 @@ import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 
 import './../../style.css';
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import BtnOutline from "../../core/BtnOutline";
 import {Context} from "../../context";
 
@@ -65,19 +64,19 @@ const PanelItem = props => {
         {/*    <Div>{props.title}</Div>*/}
         {/*</PanelHeader>*/}
         <div className={'panel'}>
-            <Div className={'header'}>
+            <div className={'header'}>
                 <button className={'btn-back'} onClick={go} data-to={props.back_id}>
                     {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
                 </button>
-                <Div className={'header-title'}>{props.title}</Div>
-            </Div>
+                <div className={'header-title'}>{props.title}</div>
+            </div>
 
-            <Div className='content'>
+            <div className='content'>
                 <div className={'btn-wrap'} ref={refCallback}>
 
                     {buttons}
                 </div>
-            </Div>
+            </div>
         </div>
     </div>
 }

@@ -4,7 +4,6 @@ import {IOS, platform} from '@vkontakte/vkui';
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 import './../../style.css';
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import CellButton from "@vkontakte/vkui/dist/components/CellButton/CellButton";
 import Icon24BrowserBack from '@vkontakte/icons/dist/24/browser_back';
@@ -61,7 +60,8 @@ const ListProducts = props => {
         })
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
-                "message": `Где купить\\заказать ${product.name}! Помогите найти! https://vk.com/siberia_handmade`,
+                "message": `Где купить\\заказать? ${product.name}! Помогите найти! ${
+                    <a href="https://vk.com/siberia_handmade">Что подарить? | «Hand Made»</a>}`,
                 "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
             })
         }
@@ -116,7 +116,7 @@ const ListProducts = props => {
             filteredProducts.map((product) => {
                 data.response.forEach(function (photo) {
                     if (!!product.img && product.img.includes(photo.id)) {
-                        product.img_url = photo.sizes[4].url
+                        product.img_url = photo.sizes[window.innerHeight < 650 ? 3 : 4].url
                     }
                 })
                 return product
@@ -200,13 +200,13 @@ const ListProducts = props => {
     const title = currentProduct && currentProduct.name;
     return <div className={'wrapper'} id={props.id}>
         <div className={'panel'}>
-            <Div className={'header'}>
+            <div className={'header'}>
                 <button className={'btn-back'} onClick={go} data-to={props.back_id}>
                     {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}
                 </button>
-                <Div
-                    className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</Div>
-            </Div>
+                <div
+                    className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</div>
+            </div>
             <div className={'container-items'} ref={refCallback}>
                 {/*<Div className="title">Мы кое-что нашли</Div>*/}
                 <div className={'block-items'}>

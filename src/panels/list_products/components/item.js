@@ -23,7 +23,7 @@ Product.propTypes = {
     product:PropTypes.shape({
         name: PropTypes.string.isRequired,
         // img_url: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired
+        id: PropTypes.string.isRequired
     }),
     count:PropTypes.number.isRequired,
     item: PropTypes.number.isRequired,
