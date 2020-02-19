@@ -1,21 +1,28 @@
 {
   "files": {
-    "main.css": "/vk_handmade/static/css/main.21bb3589.chunk.css",
-    "main.js": "/vk_handmade/static/js/main.0ecd59dc.chunk.js",
-    "main.js.map": "/vk_handmade/static/js/main.0ecd59dc.chunk.js.map",
-    "runtime-main.js": "/vk_handmade/static/js/runtime-main.0a406d28.js",
-    "runtime-main.js.map": "/vk_handmade/static/js/runtime-main.0a406d28.js.map",
-    "static/css/2.4e89ce74.chunk.css": "/vk_handmade/static/css/2.4e89ce74.chunk.css",
-    "static/js/2.f84393b8.chunk.js": "/vk_handmade/static/js/2.f84393b8.chunk.js",
-    "static/js/2.f84393b8.chunk.js.map": "/vk_handmade/static/js/2.f84393b8.chunk.js.map",
+    "main.css": "/vk_handmade/static/css/main.648e5893.chunk.css",
+    "main.js": "/vk_handmade/static/js/main.7a64bedb.chunk.js",
+    "main.js.map": "/vk_handmade/static/js/main.7a64bedb.chunk.js.map",
+    "runtime-main.js": "/vk_handmade/static/js/runtime-main.32825bfb.js",
+    "runtime-main.js.map": "/vk_handmade/static/js/runtime-main.32825bfb.js.map",
+    "static/css/2.2cfa1b23.chunk.css": "/vk_handmade/static/css/2.2cfa1b23.chunk.css",
+    "static/js/2.42e1462f.chunk.js": "/vk_handmade/static/js/2.42e1462f.chunk.js",
+    "static/js/2.42e1462f.chunk.js.map": "/vk_handmade/static/js/2.42e1462f.chunk.js.map",
     "index.html": "/vk_handmade/index.html",
-    "precache-manifest.3c007ac9020c7f4577bdbd869ff14d5f.js": "/vk_handmade/precache-manifest.3c007ac9020c7f4577bdbd869ff14d5f.js",
+    "precache-manifest.ad17015091541d3f9289c5968e8e4cc0.js": "/vk_handmade/precache-manifest.ad17015091541d3f9289c5968e8e4cc0.js",
     "service-worker.js": "/vk_handmade/service-worker.js",
-    "static/css/2.4e89ce74.chunk.css.map": "/vk_handmade/static/css/2.4e89ce74.chunk.css.map",
-    "static/css/main.21bb3589.chunk.css.map": "/vk_handmade/static/css/main.21bb3589.chunk.css.map",
-    "static/media/arrow.svg": "/vk_handmade/static/media/arrow.aa69be66.svg",
-    "static/media/style.css": "/vk_handmade/static/media/bg.cb9f6033.svg",
+    "static/css/2.2cfa1b23.chunk.css.map": "/vk_handmade/static/css/2.2cfa1b23.chunk.css.map",
+    "static/css/main.648e5893.chunk.css.map": "/vk_handmade/static/css/main.648e5893.chunk.css.map",
+    "static/js/2.42e1462f.chunk.js.LICENSE.txt": "/vk_handmade/static/js/2.42e1462f.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/vk_handmade/static/media/screen_mobile.f783b487.svg",
     "static/media/persik.png": "/vk_handmade/static/media/persik.4e1ec840.png",
     "static/media/search.svg": "/vk_handmade/static/media/search.e7324524.svg"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.32825bfb.js",
+    "static/css/2.2cfa1b23.chunk.css",
+    "static/js/2.42e1462f.chunk.js",
+    "static/css/main.648e5893.chunk.css",
+    "static/js/main.7a64bedb.chunk.js"
+  ]
 }
