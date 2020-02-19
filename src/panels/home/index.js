@@ -3,7 +3,7 @@ import {Context} from './../../context'
 import PropTypes from 'prop-types';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import BtnOutline from "../../core/BtnOutline";
-import arrow from './../../img/arrow.svg'
+//import arrow from './../../img/arrow.svg'
 
 const Home = (props) => {
 
@@ -36,12 +36,14 @@ const Home = (props) => {
             Не знаешь что подарить?
         </Div>
         <Div className='text'>
-            Воспользуйся нашим сервисом<br/>и получи идеи для подарка!
+            Воспользуйся<br/>нашим сервисом<br/>и получи идеи для подарка!
         </Div>
-       <img src={arrow} className={'arrow'}/>
+       {/* <img src={arrow} className={'arrow'}/>  // убрал стрелку */} 
+        <Div>
         <BtnOutline data_to="how" handleClick={go}>
             Найти подарок!
         </BtnOutline>
+        </Div>
     </div>
     </div>
 }

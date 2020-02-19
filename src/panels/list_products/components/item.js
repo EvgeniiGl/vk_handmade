@@ -2,13 +2,15 @@ import React from 'react'
 import persik from "../../../img/persik.png";
 import PropTypes from 'prop-types';
 
-const Product = props => {
+const Product = React.memo(props => {
     const {product, count, item, give, buy} = props
     return (
         <div className="product">
+            <div className="svg-image"></div>
             {/*<div>Идея {item} из {count}:<br/> {product.name}</div>*/}
             <div className={'img-wrap'}>
-                <img className="img-product" src={product.img_url || persik} alt="Persik The Cat"/>
+                
+                <img placeholder="" className="img-product" src={product.img_url || persik} alt="Persik The Cat"/>
             </div>
             {/*<div>*/}
             {/*    <Button size='l' level="outline" className="btn-white" data-product={product.id} data-name={product.name} onClick={e=>buy(e)}>Где купить?</Button>*/}
@@ -16,8 +18,7 @@ const Product = props => {
             {/*</div>*/}
         </div>
     )
-}
-
+})
 Product.propTypes = {
     product: PropTypes.shape({
         name: PropTypes.string.isRequired,

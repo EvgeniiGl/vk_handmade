@@ -95,7 +95,7 @@
 .btn-white {
     margin: 4px 10px;
     background: #279FD8;
-    width: 200px;
+    width: 100%;
     border-radius: 15px;
     font-family: Roboto;
     font-style: normal;
@@ -127,27 +127,9 @@
     /* border-color: #ffffff42; */
 }
 
-@media screen and (min-width: 600px){
-    .gallery {
-        margin-top: 20px;
-        overflow: hidden;
-        height: auto;
-    }
-}
-
-@media screen and (max-width: 600px){
-    .gallery {
-        margin-top: 10px;
-        overflow: hidden;
-        height: 330px;
-    }
-}
-
-/* .gallery {
+.gallery {
     height: auto;
-    overflow: hidden;
-    height: 450px;
-} */
+}
 
 .Gallery__slide {
     /* height: auto; */
@@ -253,7 +235,7 @@
     font-weight: bold;
     font-size: 20px;
     line-height: 23px;
-    text-align: center;
+    text-align: ;
     color: #FFFFFF;
 }
 

@@ -24,6 +24,7 @@ const uriImg = 'photos.getById';
 
 const ListProducts = props => {
     const [slideIndex, setSlide] = useState(0);
+    // const slideIndex = useState(0);
     const {state, dispatch} = useContext(Context)
     let filteredProducts = {};
 

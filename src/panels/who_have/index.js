@@ -42,6 +42,7 @@ const WhoHave = props => {
         >
         </PanelHeader>
         <Div className='wrapper bg-gray'>
+            <Div>
             <Div>Кем приходится?</Div>
             <BtnOutline handleClick={(e) => setRelation(e, 'relative')} data_to="age"
                         active={state.indicators.relation === 'relative'}>
@@ -63,6 +64,7 @@ const WhoHave = props => {
                         active={state.indicators.relation === 'other'}>
                 Другое
             </BtnOutline>
+        </Div>
         </Div>
     </Panel>
 }
