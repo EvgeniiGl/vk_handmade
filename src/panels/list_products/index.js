@@ -62,7 +62,7 @@ const ListProducts = props => {
         })
         if (connect.supports("VKWebAppShowWallPostBox")) {
             connect.send("VKWebAppShowWallPostBox", {
-                "message": `Где купить\\заказать ${product.name}! Помогите найти! https://vk.com/siberia_handmade`,
+                "message": `Где купить\\заказать: ${product.name}! Помогите найти! https://vk.com/siberia_handmade`,
                 "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
             })
         }

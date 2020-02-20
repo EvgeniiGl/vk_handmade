@@ -16,7 +16,6 @@ const Product = React.memo(props => {
             {/*    <Button size='l' level="outline" className="btn-white" data-product={product.id} data-name={product.name} onClick={e=>buy(e)}>Где купить?</Button>*/}
             {/*    <Button size='l' level="outline" className="btn-white" onClick={e=>give(e, product)}>Хочу себе!</Button>*/}
             {/*</div>*/}
-            
         </div>
     )
 })
