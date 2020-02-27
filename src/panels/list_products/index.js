@@ -156,6 +156,7 @@ const ListProducts = props => {
             if (!!photos) {
                 httpApiVk.jsonp(uriImg, {photos: photos}, getImgs)
             } else {
+                console.log(dispatch);
                 dispatch({
                     type: 'getFilteredProducts',
                     payload: {
@@ -209,7 +210,6 @@ const ListProducts = props => {
                     className={'header-title'}>{(!!countProducts && countProducts !== slideIndex) ? `${item} из ${countProducts}: ${title}` : "Не нашли что искали?"}</Div>
             </Div>
             <div className={'container-items'} ref={refCallback}>
-                {/*<Div className="title">Мы кое-что нашли</Div>*/}
                 <div className={'block-items'}>
                     <div className={'slider-wrap'}>
                         {!!countProducts && slideIndex !== 0 &&

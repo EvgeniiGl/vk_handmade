@@ -33,13 +33,13 @@ const Home = (props) => {
 
 
         <Div className='title'>
-            Не знаешь что подарить?
+            Не знаешь,<br/>что подарить?
         </Div>
         <Div className='text'>
-            Воспользуйся<br/>нашим сервисом<br/>и получи идеи для подарка!
+            Воспользуйся нашим сервисом<br/>и получи идеи для подарка!
         </Div>
        {/* <img src={arrow} className={'arrow'}/>  // убрал стрелку */} 
-        <Div>
+        <Div className='homeBtn'>
         <BtnOutline data_to="how" handleClick={go}>
             Найти подарок!
         </BtnOutline>

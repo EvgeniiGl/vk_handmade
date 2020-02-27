@@ -3,6 +3,8 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import PropTypes from 'prop-types';
 import search from './../../../img/search.svg'
 
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
+
 const LastItem = props => {
     const { again, redirectSiberiaHandmade}= props
     return (
