@@ -8,7 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100px;
+    height: 20%;
+    /* min-height: 100px; */
     background: #00000010;
 } 
 
@@ -35,7 +36,7 @@
 /*    }*/
 /*}*/
 .container-items {
-    height: 100%;
+    height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -295,6 +296,7 @@
 
 .header {
     display: flex;
+    height: 20%;
     align-items: center;
     justify-content: center;
     background: linear-gradient(270deg, #279FD8 0%, #40A9DC 100%);
@@ -500,4 +502,22 @@
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.styleButtons {
+    overflow: auto;
+    flex-direction: column;
+    display: flex;
+    height: 74vh;
+    justify-content: end;
+   
+}
+
+@media screen and (min-width: 600px){
+.styleButtons::-webkit-scrollbar {
+    overflow: auto;
+    display: none;  /* WebKit */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
 }

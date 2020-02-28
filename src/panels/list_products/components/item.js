@@ -1,13 +1,15 @@
 import React from 'react'
 import persik from "../../../img/persik.png";
 import PropTypes from 'prop-types';
+import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner";
+
 
 const Product = React.memo(props => {
     const {product, count, item, give, buy} = props
     return (
         <div className="product">
-            <div className="svg-image"></div>
-            {/*<div>Идея {item} из {count}:<br/> {product.name}</div>*/}
+            {/* <div className="svg-image"></div> */}
+            <div style= {{position: 'absolute', zIndex: -1}}><ScreenSpinner size='medium'/></div>
             <div className={'img-wrap'}>
                 
                 <img placeholder="" className="img-product" src={product.img_url || persik} alt="Persik The Cat"/>

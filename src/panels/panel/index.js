@@ -74,7 +74,8 @@ const PanelItem = props => {
 
             <Div className='content'>
                 <div className={'btn-wrap'} ref={refCallback}>
-                    <div style= {{overflowY:'scroll', flexDirection:'column', display:'flex', height: '70vh'}}>{buttons} </div>
+                    <div className= {'styleButtons'}>{buttons}</div> 
+                    {/* <div style= {{overflowY:'scroll', flexDirection:'column', display:'flex', height: '70vh'}}>{buttons} </div> */}
 
                     {/* {buttons} */}
                 </div>
