@@ -9,7 +9,7 @@ const LastItem = props => {
     const { again, redirectSiberiaHandmade}= props
     return (
         <div className="product">
-<img src={search} className={'img-search'} /* width={100} height={100} *//>
+<img src={search} className={'img-search'} /* width={150} height={200} *//>
             <div width={100} height={100}>
                 <Button size='l' level="outline" className="btn-white" onClick={again}>Попробовать еще раз!</Button>< br /> 
                 <Button size='l' level="outline" className="btn-white" onClick={redirectSiberiaHandmade}>Подберите мне подарок!</Button>
