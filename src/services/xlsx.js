@@ -20,7 +20,7 @@ export const getXLS = () => {
         const productsWorksheet = workbook.Sheets[workbook.SheetNames[1]];
         const types = XLSX.utils.sheet_to_json(typesWorksheet);
         const products = XLSX.utils.sheet_to_json(productsWorksheet);
-
+console.log(types);
         return {types: types, products: products}
     });
 }

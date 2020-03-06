@@ -125,6 +125,7 @@ const App = () => {
             //             types[key][type.id] = firstUpperCaseTrim(type[key])
             //     })
             // })
+            //console.log(data.types);
             const types = getTypes(data.products, data.types)
             // console.log('types-- ', types);
             dispatch({
@@ -156,12 +157,31 @@ const App = () => {
         return result;
     }
 
-// console.log('data.types-- ',state.types);
-// console.log('data.products-- ',state.products);
-//     console.log('state.ind-- ', state.indicators);
-// const ref = {};
+    // попробывал сравнить индикатор с типами и продумать дальше логику 
+    // data.tupes приходит массив со строками и его надо сравнить с state.indicators.age строкой age 
+    // 'Выпускной детский сад' !== 'На Свадьба' !== 'На Свадьбу' !== 'На выписку' !== 'На корпоратив'  !== 'Новоселье' !== 'Рождение ребенка' !== 'Свадьба'
+    //  (+key > =1 : +key < 6) проверка на возраст 
+    // state.indicators.event.map(()=> {
+    //     if (state.indicators.age == 'На Свадьба'
+    //     return 
+    //     else state.indicators.age == 'На Свадьбу'
+    //     return 
+    //     )})
+    // const getFiltersAtAge = () => {
+    //     let result = [], key;
+    //     for (key in state.types.event) {
+    //         if (state.types.relation.hasOwnProperty(key) && (state.indicators.age === 'От 0 до 5 лет' || 'От 6 до 10 лет' ? +key <= 6 : +key > 6 )){
+    //             result.push(state.types.event[key]); 
+    //         }
+    //     }
+    //     return result;
+    // }
 
-    // console.log('lo33g-- ',ref.getBoundingclientRect(), ref.clientHeight);
+ //console.log('data.types-- ', state.types);
+ // console.log('data.products-- ',state.products);
+ //console.log('state.ind-- ', state.indicators);
+ // const ref = {};
+ // console.log('lo33g-- ',ref.getBoundingclientRect(), ref.clientHeight);
     return (
         <Context.Provider value={{
             state, dispatch
@@ -182,8 +202,7 @@ const App = () => {
                                types={state.types.age}/>
                     <PanelItem withHeader id={'profession'} back_id={'age'} to_id={'list_products'} title={'Профессия?'}
                                types={state.types.profession}/>
-                    <PanelItem withHeader id={'relation'} back_id={'age'} to_id={'list_products'}
-                               title={'Кем приходится?'}
+                    <PanelItem withHeader id={'relation'} back_id={'age'} to_id={'list_products'} title={'Кем приходится?'}
                                types={getRelationsAtSex()}/>
                     <PanelItem withHeader id={'hobby'} back_id={'age'} to_id={'list_products'} title={'Увлечение?'}
                                types={state.types.hobby}/>

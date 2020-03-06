@@ -9,8 +9,9 @@ export const getTypes = (products, typesXlsx) => {
         relation: [],
         sex: [],
         profession: [],
+        eventObj: [],
     };
-// console.log('typesXlsx-- ',typesXlsx);
+    //console.log('typesXlsx-- ',typesXlsx);
     // let types = {};
     // keys.forEach((key) => {
     //     types[key] = {}
@@ -40,12 +41,13 @@ export const getTypes = (products, typesXlsx) => {
     })
     types.age = [...new Set(types.age.sort())]
     types.event = [...new Set(types.event.sort())]
+    types.eventObj = [...new Set(types.eventObj.sort())]
     types.hobby = [...new Set(types.hobby.sort())]
     types.how = [...new Set(types.how.sort())]
     // types.relation = [...new Set(types.relation.sort())]
     types.sex = [...new Set(types.sex.sort())]
     types.profession = [...new Set(types.profession.sort())]
-//данные "отношения" берем из первого листа чтобы поделить на М и Ж
+    //данные "отношения" берем из первого листа чтобы поделить на М и Ж
 
     types.relation = typesXlsx.map((type) => {
         if (type.relation !== undefined)
@@ -53,7 +55,7 @@ export const getTypes = (products, typesXlsx) => {
     }).filter((type)=>!!type)
 
 
-
+    //console.log(types.relation, types.age);
     return types;
 }
 

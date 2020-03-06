@@ -44,18 +44,21 @@ const Age = props => {
         <Div className='wrapper bg-gray'>
             <Div>Сколько лет?</Div>
             <BtnOutline handleClick={(e) => setAge(e, 0)} data_to="list_products" active={state.indicators.age === 0}>
-                от 0 до 10 лет
+                от 0 до 5 лет
             </BtnOutline>
             <BtnOutline handleClick={(e) => setAge(e, 1)} data_to="list_products" active={state.indicators.age === 1}>
-                от 11 до 16 лет
+                от 6 до 10 лет
             </BtnOutline>
             <BtnOutline handleClick={(e) => setAge(e, 2)} data_to="list_products" active={state.indicators.age === 2}>
-                от 17 до 20 лет
+                от 11 до 16 лет
             </BtnOutline>
             <BtnOutline handleClick={(e) => setAge(e, 3)} data_to="list_products" active={state.indicators.age === 3}>
-                от 21 до 30 лет
+                от 17 до 20 лет
             </BtnOutline>
             <BtnOutline handleClick={(e) => setAge(e, 4)} data_to="list_products" active={state.indicators.age === 4}>
+                от 21 до 30 лет
+            </BtnOutline>
+            <BtnOutline handleClick={(e) => setAge(e, 5)} data_to="list_products" active={state.indicators.age === 5}>
                 от 30 и старше
             </BtnOutline>
         </Div>

@@ -143,8 +143,11 @@ const ListProducts = props => {
         })
 
         function filter() {
+            // console.log('prod',state.products,state.indicators,handmade_id);
+
             filteredProducts = filterProducts.filter(state.products, state.indicators);
             const photos = filteredProducts.map((product) => {
+                // console.log('proddd',product.img);
                 if (!product.img) return '';
                 product.img_fullname = `-${handmade_id}_${String(product.img).split(',')[0].trim()}`
                 return product.img_fullname
@@ -156,7 +159,7 @@ const ListProducts = props => {
             if (!!photos) {
                 httpApiVk.jsonp(uriImg, {photos: photos}, getImgs)
             } else {
-                console.log(dispatch);
+                //console.log(dispatch);
                 dispatch({
                     type: 'getFilteredProducts',
                     payload: {
@@ -195,7 +198,7 @@ const ListProducts = props => {
                                                                          product={product}
                                                                          count={countProducts}/>)
 
-    // console.log('countProducts-- ', countProducts);
+    //console.log('countProducts-- ', products);
     // console.log('state.filteredProducts-- ', state.filteredProducts);
     const item = slideIndex + 1;
     const currentProduct = state.filteredProducts[slideIndex];

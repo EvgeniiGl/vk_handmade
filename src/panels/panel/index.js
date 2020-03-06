@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {IOS, platform} from '@vkontakte/vkui';
+import {IOS, platform, Button} from '@vkontakte/vkui';
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
 
@@ -33,13 +33,29 @@ const PanelItem = props => {
             }
         })
     };
+    //(props.id == 'event') && props.types.filter((val) => val !== 'Kорпоратив')
+    const eventDis = ['На Свадьбу','Девишник','Свадьба']
 
-    const buttons = Object.values(props.types).map((val) => <BtnOutline key={val}
+    // const ageDis = (state.indicators.age === 'От 0 до 5 лет' ||
+    //                 state.indicators.age === 'От 6 до 10 лет'
+    // );
+
+    const ageDis = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age)
+    //console.log(ageDis);
+                   
+    const types = (props.id == 'event') ? props.types.filter((val) => {
+       return ageDis ? !eventDis.find((event)=> event === val) : val
+
+    }) : props.types   
+
+    console.log(types);
+    const buttons = Object.values(types).map((val) => <BtnOutline key={val}
                                                                         handleClick={(e) => setIndicators(e, {[props.id]: val})}
                                                                         data_to={props.to_id}
                                                                         active={state.indicators[props.id] === val}>
         {val}
     </BtnOutline>)
+    
     const refCallback = element => {
         if (element) {
             const root = document.getElementById('root')
@@ -56,10 +72,13 @@ const PanelItem = props => {
         }
     };
 
+    //console.log(state.indicators[props.id]);// приходит при отрисовки продуктов
+    console.log(state.indicators);// вся доступная инфа 
+    console.log(props); // выбраные страницы 
     return <div className={'wrapper'} id={props.id}>
         {/*<PanelHeader className={'header'} left={*/}
         {/*    <HeaderButton onClick={go} data-to={props.back_id}>*/}
-        {/*        {osName === IOS ? <Icon28ChevronBack/> : <Icon24Back/>}*/}
+        {/*        {osName === IOS ?ChevronBack/> : <Icon24Back/>}*/}
         {/*    </HeaderButton>}*/}
         {/*>*/}
         {/*    <Div>{props.title}</Div>*/}
