@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import {IOS, platform, Button} from '@vkontakte/vkui';
 import Icon28ChevronBack from '@vkontakte/icons/dist/28/chevron_back';
 import Icon24Back from '@vkontakte/icons/dist/24/back';
@@ -33,23 +33,42 @@ const PanelItem = props => {
             }
         })
     };
+    //'profession' От 0 до 5 лет  = Айтишнику Банкиру Бармену Бизнес-тренеру Визажисту Военному Воспитателю Доктору Методисту 
+    // Моряку Парикмахеру Продавцу Стилисту Стоматологу Строителю Таксисту Тренеру Фитнес-тренеру Фотографу Художнику Швее Шоферу Юристу
     //(props.id == 'event') && props.types.filter((val) => val !== 'Kорпоратив')
-    const eventDis = ['На Свадьбу','Девишник','Свадьба']
 
-    // const ageDis = (state.indicators.age === 'От 0 до 5 лет' ||
-    //                 state.indicators.age === 'От 6 до 10 лет'
-    // );
+    // список исключений 'event'
+    const eventDisable = ['На Свадьбу','Девишник','Свадьба','Рождение ребенка','На рождение ребенка','На мальчишник','На корпоратив','На Свадьба','Мальчишник','Корпоратив','Автоледи'];
+    const eventYoungDisable = ['Выпускной детский сад'];
+    
+    //исключение возраста 
+    const ageDisableYoung = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age);
+    //console.log(ageDisable);
 
-    const ageDis = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age)
-    //console.log(ageDis);
-                   
-    const types = (props.id == 'event') ? props.types.filter((val) => {
-       return ageDis ? !eventDis.find((event)=> event === val) : val
+    //поиск страницы событие и удаление на ней не нужных элементов 
+    const typesEventYoung = (props.id == 'event')
+    ?  props.types.filter((val) => {
+        return ageDisableYoung ? !eventDisable.find((event)=> event === val) : val}) 
+    : props.types
+    
+    const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);    
+    
+    const typesEventOld = (props.id == 'event')
+    ?  props.types.filter((val) => {
+         return ageDisableOld ? !eventYoungDisable.find((event)=> event === val) : val}) 
+    : props.types
 
-    }) : props.types   
+    
+    const sexDisable = !!['Мужчине'].find(sex => sex === state.indicators.sex);
+    //console.log(sexDisable);
 
-    console.log(types);
-    const buttons = Object.values(types).map((val) => <BtnOutline key={val}
+    const typesHobby = (props.id == 'hobby') 
+    ? props.types.filter((val) => {
+        return sexDisable ? !eventDisable.find((event) => event == val) : val})
+    : props.types
+
+    // console.log(types);
+    const buttons = (Object.values(typesEventYoung) && Object.values(typesHobby) && Object.values(typesEventOld)).map((val) => <BtnOutline key={val}
                                                                         handleClick={(e) => setIndicators(e, {[props.id]: val})}
                                                                         data_to={props.to_id}
                                                                         active={state.indicators[props.id] === val}>
@@ -72,7 +91,6 @@ const PanelItem = props => {
         }
     };
 
-    //console.log(state.indicators[props.id]);// приходит при отрисовки продуктов
     console.log(state.indicators);// вся доступная инфа 
     console.log(props); // выбраные страницы 
     return <div className={'wrapper'} id={props.id}>
@@ -92,7 +110,7 @@ const PanelItem = props => {
             </Div>
 
             <Div className='content'>
-                <div className={'btn-wrap'} ref={refCallback}>
+                <div className={'btn-wrap'} >
                     <div className= {'styleButtons'}>{buttons}</div> 
                     {/* <div style= {{overflowY:'scroll', flexDirection:'column', display:'flex', height: '70vh'}}>{buttons} </div> */}
 
