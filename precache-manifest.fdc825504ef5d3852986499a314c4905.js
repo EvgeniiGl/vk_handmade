@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b5ee330788ad22137472a4150bf9da67",
+    "revision": "72617bfbe35ebb39ccda888cb9337c09",
     "url": "/vk_handmade/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vk_handmade/static/css/2.2cfa1b23.chunk.css"
   },
   {
-    "revision": "f105ccd19f6ab79321c3",
-    "url": "/vk_handmade/static/css/main.b426d33e.chunk.css"
+    "revision": "bbdb1d711af5ef7f172a",
+    "url": "/vk_handmade/static/css/main.fbfcea74.chunk.css"
   },
   {
     "revision": "fc816de26d382c61d94e",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vk_handmade/static/js/2.b8acfd86.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f105ccd19f6ab79321c3",
+    "revision": "bbdb1d711af5ef7f172a",
     "url": "/vk_handmade/static/js/main.e0483c6d.chunk.js"
   },
   {
