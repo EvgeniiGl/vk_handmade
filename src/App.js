@@ -14,6 +14,7 @@ import PanelItem from "./panels/panel";
 import ListProducts from "./panels/list_products";
 import {typeHow} from "./services/filter_products";
 import {getTypes} from "./services/types";
+import { checkPropTypes } from 'prop-types';
 
 const initialState = {
     activePanel: 'home',
@@ -70,9 +71,8 @@ const App = () => {
     // 	})
     // };
     //
-    const setUser = user => {
-
-    };
+    // const setUser = user => {
+    // };
 
     //get user info
     useEffect(() => {
@@ -157,37 +157,16 @@ const App = () => {
         return result;
     }
 
-    // попробывал сравнить индикатор с типами и продумать дальше логику 
-    // data.tupes приходит массив со строками и его надо сравнить с state.indicators.age строкой age 
-    // 'Выпускной детский сад' !== 'На Свадьба' !== 'На Свадьбу' !== 'На выписку' !== 'На корпоратив'  !== 'Новоселье' !== 'Рождение ребенка' !== 'Свадьба'
-    //  (+key > =1 : +key < 6) проверка на возраст 
-    // state.indicators.event.map(()=> {
-    //     if (state.indicators.age == 'На Свадьба'
-    //     return 
-    //     else state.indicators.age == 'На Свадьбу'
-    //     return 
-    //     )})
-    // const getFiltersAtAge = () => {
-    //     let result = [], key;
-    //     for (key in state.types.event) {
-    //         if (state.types.relation.hasOwnProperty(key) && (state.indicators.age === 'От 0 до 5 лет' || 'От 6 до 10 лет' ? +key <= 6 : +key > 6 )){
-    //             result.push(state.types.event[key]); 
-    //         }
-    //     }
-    //     return result;
-    // }
 
  //console.log('data.types-- ', state.types);
  // console.log('data.products-- ',state.products);
  //console.log('state.ind-- ', state.indicators);
- // const ref = {};
- // console.log('lo33g-- ',ref.getBoundingclientRect(), ref.clientHeight);
     return (
         <Context.Provider value={{
             state, dispatch
         }}>
             <div className={state.isOverflow?"container-height-auto":"container"}>
-                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null}>
+                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null} style = {{animation: 'moving-vertically'}} >
                     <Home id='home' fetchedUser={state.fetchedUser}/>
                     {/*<Whom id='sex'/>*/}
                     {/*<WhoHave id='who_have'/>*/}

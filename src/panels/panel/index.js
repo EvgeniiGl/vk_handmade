@@ -43,7 +43,11 @@ const PanelItem = props => {
     
     //исключение возраста 
     const ageDisableYoung = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age);
-    //console.log(ageDisable);
+
+    const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);
+
+    const sexDisable = !!['Мужчине'].find(sex => sex === state.indicators.sex);
+    
 
     //поиск страницы событие и удаление на ней не нужных элементов 
     const typesEventYoung = (props.id == 'event')
@@ -51,15 +55,13 @@ const PanelItem = props => {
         return ageDisableYoung ? !eventDisable.find((event)=> event === val) : val}) 
     : props.types
     
-    const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);    
-    
+  
     const typesEventOld = (props.id == 'event')
     ?  props.types.filter((val) => {
          return ageDisableOld ? !eventYoungDisable.find((event)=> event === val) : val}) 
     : props.types
 
     
-    const sexDisable = !!['Мужчине'].find(sex => sex === state.indicators.sex);
     //console.log(sexDisable);
 
     const typesHobby = (props.id == 'hobby') 
@@ -68,7 +70,7 @@ const PanelItem = props => {
     : props.types
 
     // console.log(types);
-    const buttons = (Object.values(typesEventYoung) && Object.values(typesHobby) && Object.values(typesEventOld)).map((val) => <BtnOutline key={val}
+    const buttons = ( Object.values(typesHobby) && (Object.values(typesEventYoung) || Object.values(typesEventOld))).map((val) => <BtnOutline key={val}
                                                                         handleClick={(e) => setIndicators(e, {[props.id]: val})}
                                                                         data_to={props.to_id}
                                                                         active={state.indicators[props.id] === val}>
