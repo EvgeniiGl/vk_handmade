@@ -79,6 +79,7 @@
     /* margin: auto; */
     height: 100%;
     overflow: auto;
+    padding-bottom: 0
     }
 /* @media screen and (min-width: 600px) {
     .home {
@@ -90,6 +91,7 @@
     .home {
         margin-right: 200px;
     }
+    
 } */
 
 @media screen and (min-width: 600px){
@@ -543,7 +545,6 @@
 .wrapper {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;

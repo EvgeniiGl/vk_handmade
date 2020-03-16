@@ -8,6 +8,9 @@ import './../../style.css';
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import BtnOutline from "../../core/BtnOutline";
 import {Context} from "../../context";
+import '../../../node_modules/animate.css/animate.css';
+
+
 
 const osName = platform();
 
@@ -25,6 +28,7 @@ const PanelItem = props => {
     };
 
     const go = e => {
+
         dispatch({
             type: 'setActivePanel',
             payload: {
@@ -35,42 +39,44 @@ const PanelItem = props => {
     };
     //'profession' От 0 до 5 лет  = Айтишнику Банкиру Бармену Бизнес-тренеру Визажисту Военному Воспитателю Доктору Методисту 
     // Моряку Парикмахеру Продавцу Стилисту Стоматологу Строителю Таксисту Тренеру Фитнес-тренеру Фотографу Художнику Швее Шоферу Юристу
+
+    //'profession' 'От 11 до 16 лет' = Банкиру Бармену Бизнес-тренеру Визажисту Воспитателю Методисту Парикмахеру Стилисту Стоматологу Тренеру Швее Юристу
     //(props.id == 'event') && props.types.filter((val) => val !== 'Kорпоратив')
 
     // список исключений 'event'
-    const eventDisable = ['На Свадьбу','Девишник','Свадьба','Рождение ребенка','На рождение ребенка','На мальчишник','На корпоратив','На Свадьба','Мальчишник','Корпоратив','Автоледи'];
-    const eventYoungDisable = ['Выпускной детский сад'];
+    const eventDisableYoung = ['На Свадьбу','Девишник','Свадьба','Рождение ребенка','На рождение ребенка','На мальчишник','На корпоратив','На Свадьба','Мальчишник','Корпоратив','Автоледи'];
+    const eventDisableOld = ['Выпускной детский сад',];
+
+     const professionDisableOld = ['Банкиру','Бармену','Бизнес-тренеру','Визажисту','Воспитателю','Методисту','Парикмахеру','Стилисту','Стоматологу','Тренеру','Швее','Юристу'];
+     const professionDisableYoung = ['Айтишнику','Банкиру','Бармену','Бизнес-тренеру','Визажисту','Военному','Воспитателю','Доктору','Методисту','Моряку','Парикмахеру',
+     'Продавцу','Стилисту','Стоматологу','Строителю','Таксисту','Тренеру','Фитнес-тренеру','Фотографу','Художнику','Швее','Шоферу','Юристу'];
     
     //исключение возраста 
-    const ageDisableYoung = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age);
-
-    const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);
+    const ageDisable = !!['От 0 до 5 лет', 'От 6 до 10 лет'].find(age => age === state.indicators.age);
+    //const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);
 
     const sexDisable = !!['Мужчине'].find(sex => sex === state.indicators.sex);
     
 
-    //поиск страницы событие и удаление на ней не нужных элементов 
-    const typesEventYoung = (props.id == 'event')
+    //проверка в списке событие на рабочие кнопки 
+    const typesEvent = (props.id == 'event')
     ?  props.types.filter((val) => {
-        return ageDisableYoung ? !eventDisable.find((event)=> event === val) : val}) 
+        return ageDisable ? !eventDisableYoung.find((event)=> event === val) : !eventDisableOld.find((event)=> event === val)}) 
     : props.types
     
-  
-    const typesEventOld = (props.id == 'event')
-    ?  props.types.filter((val) => {
-         return ageDisableOld ? !eventYoungDisable.find((event)=> event === val) : val}) 
-    : props.types
-
-    
-    //console.log(sexDisable);
-
+    // пeроверка в списке увлечение на рабочие кнопки 
     const typesHobby = (props.id == 'hobby') 
     ? props.types.filter((val) => {
-        return sexDisable ? !eventDisable.find((event) => event == val) : val})
+        return sexDisable ? !eventDisableYoung.find((event) => event == val) : val})
     : props.types
 
-    // console.log(types);
-    const buttons = ( Object.values(typesHobby) && (Object.values(typesEventYoung) || Object.values(typesEventOld))).map((val) => <BtnOutline key={val}
+    //пeроверка в списке профессия на рабочие кнопки  
+    const typesProfession = (props.id == 'profession')
+    ? props.types.filter((val) => {
+        return ageDisable ? !professionDisableYoung.find((event)=> event === val) : !professionDisableOld.find((event)=> event === val)})
+    : props.types
+
+    const buttons = (Object.values(typesProfession) || Object.values(typesEvent) || Object.values(typesHobby)).map((val) => <BtnOutline key={val}
                                                                         handleClick={(e) => setIndicators(e, {[props.id]: val})}
                                                                         data_to={props.to_id}
                                                                         active={state.indicators[props.id] === val}>
@@ -93,7 +99,7 @@ const PanelItem = props => {
         }
     };
 
-    console.log(state.indicators);// вся доступная инфа 
+    console.log(state);// вся доступная инфа 
     console.log(props); // выбраные страницы 
     return <div className={'wrapper'} id={props.id}>
         {/*<PanelHeader className={'header'} left={*/}

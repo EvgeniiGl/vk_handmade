@@ -2,7 +2,8 @@ import React, {useEffect, useReducer} from 'react'
 import View from '@vkontakte/vkui/dist/components/View/View';
 import '@vkontakte/vkui/dist/vkui.css';
 import reducer from './reducer'
-import connect from '@vkontakte/vk-connect';
+//import connect from '@vkontakte/vk-connect';
+import bridge from '@vkontakte/vk-bridge';
 
 
 import Home from './panels/home';
@@ -15,6 +16,7 @@ import ListProducts from "./panels/list_products";
 import {typeHow} from "./services/filter_products";
 import {getTypes} from "./services/types";
 import { checkPropTypes } from 'prop-types';
+//import {bounce} from '../../../node_modules/animate.css/animate.css';
 
 const initialState = {
     activePanel: 'home',
@@ -82,7 +84,7 @@ const App = () => {
                 popout: true,
             }
         })
-        connect.subscribe(({detail: {type, data}}) => {
+        bridge.subscribe(({detail: {type, data}}) => {
                 if (type === 'VKWebAppUpdateConfig') {
                     const schemeAttribute = document.createAttribute('scheme');
                     // console.log('schemeAttribute-- ', schemeAttribute);
@@ -90,7 +92,7 @@ const App = () => {
             }
         );
      async function fetchUser() {
-         const user = await connect.sendPromise('VKWebAppGetUserInfo');
+         const user = await bridge.sendPromise('VKWebAppGetUserInfo');
             dispatch({
                 type: 'setUser',
                 payload: {
@@ -166,7 +168,7 @@ const App = () => {
             state, dispatch
         }}>
             <div className={state.isOverflow?"container-height-auto":"container"}>
-                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null} style = {{animation: 'moving-vertically'}} >
+                <View activePanel={state.activePanel} popout={state.popout ? <ScreenSpinner size='large'/> : null}>
                     <Home id='home' fetchedUser={state.fetchedUser}/>
                     {/*<Whom id='sex'/>*/}
                     {/*<WhoHave id='who_have'/>*/}

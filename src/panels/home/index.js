@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import BtnOutline from "../../core/BtnOutline";
 //import arrow from './../../img/arrow.svg'
+import  '../../../node_modules/animate.css/animate.css';
 
 const Home = (props) => {
 

@@ -15,7 +15,8 @@ import filterProducts from "../../services/filter_products";
 import httpApiVk, {handmade_id} from "../../services/httpApiVk";
 import http from '../../services/http'
 import LastItem from "./components/last_item";
-import connect from '@vkontakte/vk-connect';
+//import connect from '@vkontakte/vk-connect';
+import bridge from '@vkontakte/vk-bridge';
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 
 const osName = platform();
@@ -46,8 +47,8 @@ const ListProducts = props => {
                 `Нажал: Хочу себе. Идея: ${product.id}-${product.name}.`
         })
 
-        if (connect.supports("VKWebAppShowWallPostBox")) {
-            connect.send("VKWebAppShowWallPostBox", {
+        if (bridge.supports("VKWebAppShowWallPostBox")) {
+            bridge.send("VKWebAppShowWallPostBox", {
                 "message": `Сервис поиска подарков! Хочу себе ${product.name}!`,
                 "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
             })
@@ -60,8 +61,8 @@ const ListProducts = props => {
             //Пользователь ${state.fetchedUser.id}.
                 `Нажал: Где купить.Помогите найти.Идея: ${product.id}-${product.name}.`
         })
-        if (connect.supports("VKWebAppShowWallPostBox")) {
-            connect.send("VKWebAppShowWallPostBox", {
+        if (bridge.supports("VKWebAppShowWallPostBox")) {
+            bridge.send("VKWebAppShowWallPostBox", {
                 "message": `Где купить\\заказать: ${product.name}! Помогите найти! https://vk.com/siberia_handmade`,
                 "attachments": `photo${product.img_fullname}, https://vk.com/siberia_handmade`
             })

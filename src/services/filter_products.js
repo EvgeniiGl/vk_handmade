@@ -55,7 +55,7 @@ export default class filterProducts {
         // console.log('product.age-- ', product);
         if (product.age === undefined) return true;
         const age = product.age.split(',').filter((i) => this.indicators.age === firstUpperCaseTrim(i))
-        console.log('product.age-- ', product.age);
+        //console.log('product.age-- ', product.age);
         return age.length > 0;
     }
 
