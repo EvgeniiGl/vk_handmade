@@ -9,7 +9,7 @@ export const getTypes = (products, typesXlsx) => {
         relation: [],
         sex: [],
         profession: [],
-        eventObj: [],
+        active: [],
     };
     //console.log('typesXlsx-- ',typesXlsx);
     // let types = {};
@@ -41,7 +41,7 @@ export const getTypes = (products, typesXlsx) => {
     })
     types.age = [...new Set(types.age.sort())]
     types.event = [...new Set(types.event.sort())]
-    types.eventObj = [...new Set(types.eventObj.sort())]
+    types.active = [...new Set(types.active.sort())]
     types.hobby = [...new Set(types.hobby.sort())]
     types.how = [...new Set(types.how.sort())]
     // types.relation = [...new Set(types.relation.sort())]
@@ -55,7 +55,7 @@ export const getTypes = (products, typesXlsx) => {
     }).filter((type)=>!!type)
 
 
-    //console.log(types.relation, types.age);
+    console.log(types);
     return types;
 }
 
@@ -69,6 +69,7 @@ export const getTypes = (products, typesXlsx) => {
 // profession: {1: "Доктору", 2: "Юристу", 3: "Учителю", 4: "Шефу", 5: "Бизнесмену", 6: "Коллеге", 7: "Айтишнику", 8: "Строителю", 9: "Военному", 10: "Моряку", 11: "Фитнес-тренеру", 12: "Швее", 13: "Повару"}
 // relation: {1: "Отец", 2: "Дедушка", 3: "Брат", 4: "Племянник", 5: "Дядя", 6: "Сын", 7: "Муж", 8: "Мать", 9: "Бабушка", 10: "Сестра", 11: "Племянница", 12: "Тётя", 13: "Дочь", 14: "Жена"}
 // sex: {1: "Мужчине", 2: "Женщине"}
+//eventObj -- тестовый
 
 //products[]
 // age: "от 11 до 16 лет, от 17 до 20 лет"

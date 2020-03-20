@@ -37,6 +37,11 @@ export default class filterProducts {
         return result;
     }
 
+    // static isActive = (product) => {
+    //     if (product.active === undefined) return true; 
+    //     return 
+    // }
+
     static isHow = (product) => {
         if (product.how === undefined) return true;
         const how = product.how.split(',').filter((i) => this.indicators.how === firstUpperCaseTrim(i))
@@ -88,9 +93,9 @@ export default class filterProducts {
         return relation.length > 0;
     }
 }
-// id,name,img,sex,how,relation,profession,hobby,event,age,link,description
+// id,active,name,img,sex,how,relation,profession,hobby,event,age,link,description
 
-// [0: {name: "Скетчбук в авторской обложке", img: "457241933, 457241935, 457241932, 457241934 ", how: "1,3,4", relation: "3, 4, 6, 10, 11, 13", hobby: "7", …}]
+// [0: {active: "1", name: "Скетчбук в авторской обложке", img: "457241933, 457241935, 457241932, 457241934 ", how: "1,3,4", relation: "3, 4, 6, 10, 11, 13", hobby: "7", …}]
 
 // how: ""
 // sex: null
@@ -99,3 +104,4 @@ export default class filterProducts {
 // hobby: null
 // profession: null
 // relation: null
+// active: '1'

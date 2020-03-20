@@ -6,6 +6,9 @@ import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenS
 
 const Product = React.memo(props => {
     const {product, count, item, give, buy} = props
+    console.log(props);
+    console.log(product);
+
     return (
         <div className="product">
             {/* <div className="svg-image"></div> */}
@@ -21,6 +24,7 @@ const Product = React.memo(props => {
         </div>
     )
 })
+
 Product.propTypes = {
     product: PropTypes.shape({
         name: PropTypes.string.isRequired,
