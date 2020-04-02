@@ -14,7 +14,7 @@ import '../../../node_modules/animate.css/animate.css';
 
 const osName = platform();
 
-const PanelItem = ({props}) => {
+const PanelItem = props => {
     const {state, dispatch} = useContext(Context)
 
     const setIndicators = (e, data) => {
@@ -57,6 +57,7 @@ const PanelItem = ({props}) => {
     //const ageDisableOld = !!['От 11 до 16 лет','От 17 до 20 лет','От 21 до 30 лет','От 31 и старше'].find(age => age === state.indicators.age);
 
     const sexDisable = !!['Мужчине'].find(sex => sex === state.indicators.sex);
+
     
 
     // //проверка в списке событие на рабочие кнопки 
@@ -82,7 +83,6 @@ const PanelItem = ({props}) => {
 
     //проверка в списках на рабочие кнопки
     const types = props.types.filter((val) => {
-
         switch (props.id) {
             case 'event' : return ageDisable ? !eventDisableYoung.find((event)=> event === val) : !eventDisableOld.find((event)=> event === val) 
             case 'hobby' : return sexDisable ? !eventDisableYoung.find((event) => event === val) : val
@@ -95,9 +95,9 @@ const PanelItem = ({props}) => {
    
 
     const buttons = types.map((val) => <BtnOutline key={val}
-                                                                        handleClick={(e) => setIndicators(e, {[props.id]: val})}
-                                                                        data_to={props.to_id}
-                                                                        active={state.indicators[props.id] === val}>
+                                                    handleClick={(e) => setIndicators(e, {[props.id]: val})}
+                                                    data_to={props.to_id}
+                                                    active={state.indicators[props.id] === val}>
         {val}
     </BtnOutline>)
     

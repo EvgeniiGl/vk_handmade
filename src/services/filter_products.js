@@ -17,7 +17,7 @@ export default class filterProducts {
         const filteredProducts = products.filter((product) => {
             const lastFilter = typeHow[this.indicators.how] === undefined ? true : this[`is${typeHow[this.indicators.how].charAt(0).toUpperCase()}${typeHow[this.indicators.how].slice(1)}`](product);
             // console.log('product-- ', product.id, product);
-            if (!product.img || !product.img.trim()) return false;
+            if (!product.img || !product.img.trim() || !product.active) return false;
             return this.isHow(product) && this.isSex(product) && this.isAge(product) && lastFilter
         })
 
@@ -57,7 +57,7 @@ export default class filterProducts {
     }
 
     static isAge = (product) => {
-        // console.log('product.age-- ', product);
+         console.log('product.age-- ', product);
         if (product.age === undefined) return true;
         const age = product.age.split(',').filter((i) => this.indicators.age === firstUpperCaseTrim(i))
         //console.log('product.age-- ', product.age);
